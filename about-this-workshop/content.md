@@ -1,10 +1,12 @@
-# Oracle Machine Learning with Python
+# Oracle Property Graph for Real-Time Recommendations
 
 ## Workshop Overview
 
-**Artificial Intelligence** and **Machine Learning** have become increasingly necessary for enterprises to translate today's data into direct business value. This course introduces learners to the basic concepts of AI/ML, using a mix of engaging lectures and hands-on activities to help you navigate the first steps in this exciting field. The exercises present real world use cases that show how Oracle is actively helping companies maximize business benefits through AI and ML.
+Oracle Database delivers high performance, scalable graph data management, query, and analytics for enterprise applications. State-of-the art graph features are available along with functionality required for enterprise grade applications: fine-grained security, high availability, easy manageability, and integration with other data in an application. Oracle’s converged, multi-model database natively supports graphs, spatial, XML, JSON and other types of data.
 
-This hands-on workshop focuses on **Oracle Machine Learning for Python (OML4Py)** which enables AI and ML capabilities of the Oracle Database in conjunction with the popular Python programming language and Jupyter notebooks.  You will learn to apply machine learning concepts and algorithms to solve real-world problems ranging from data acquisition and feature engineering, to creating ML models and tuning for optimal results.
+The Property Graph feature enables high performance graph analytics in memory using over fifty pre-built algorithms, and graph queries with a SQLlike language PGQL. Customers use Property Graphs in fraud analytics, vulnerability analysis, recommendation systems, and more.
+
+The RDF Graph feature includes native support for W3C standards RDF, OWL, and SPARQL, enabling high performance, scalable SPARQL and SPARQL embedded in SQL queries. Customers use RDF Graphs in linked data and data sharing applications in pharma, publishing, public sector and more. 
 
 ## Workshop Requirements
 
