@@ -1,12 +1,12 @@
 # Oracle Property Graph for Real-Time Recommendations
 
-## Workshop Overview
+## Introduction
 
 Oracle Database delivers high performance, scalable graph data management, query, and analytics for enterprise applications. State-of-the art graph features are available along with functionality required for enterprise grade applications: fine-grained security, high availability, easy manageability, and integration with other data in an application. Oracle’s converged, multi-model database natively supports graphs, spatial, XML, JSON and other types of data.
 
 The Property Graph feature enables high performance graph analytics in memory using over fifty pre-built algorithms, and graph queries with a SQLlike language PGQL. Customers use Property Graphs in fraud analytics, vulnerability analysis, recommendation systems, and more.
 
-The RDF Graph feature includes native support for W3C standards RDF, OWL, and SPARQL, enabling high performance, scalable SPARQL and SPARQL embedded in SQL queries. Customers use RDF Graphs in linked data and data sharing applications in pharma, publishing, public sector and more. 
+The RDF Graph feature includes native support for W3C standards RDF, OWL, and SPARQL, enabling high performance, scalable SPARQL and SPARQL embedded in SQL queries. Customers use RDF Graphs in linked data and data sharing applications in pharma, publishing, public sector and more.
 
 ## Workshop Requirements
 

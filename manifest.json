@@ -1,46 +1,66 @@
 {
     "tutorials": [
         {
-            "title": "Workshop Overview",
-            "description":"Workhop Overview",
-            "publisheddate": "01/15/2020",
-            "filename":"./about-this-workshop/content.md"
+          "title": "Workshop Overview",
+          "description":"Workhop Overview",
+          "publisheddate": "01/15/2020",
+          "filename":"./about-this-workshop/content.md"
         },
         {
-            "title": "Lab 0: Setup the Lab Environment",
-            "description":"Setup the Lab Environment",
-            "publisheddate": "01/15/2020",
-            "filename":"./lab-setup/content.md"
+          "title": "Lab 0: Setup the Lab Environment",
+          "description":"Setup the Lab Environment",
+          "publisheddate": "01/15/2020",
+          "filename":"./lab-setup/content.md"
         },
         {
-            "title": "Lab 1: Getting started with OML4Py",
-            "description":"Getting started with OML4Py",
-            "publisheddate": "01/15/2020",
-            "filename":"./intro-oml4py/content.md"
+            "title": "Setup Graph with Free Tier",
+            "description": "Introduction",
+            "filename":"../setup/setup_always_free.md"
         },
         {
-            "title": "Lab 2: Data Preparation and Exploration",
-            "description":"Data Preparation and Exploration",
-            "publisheddate": "01/15/2020",
-            "filename":"./data-preparation-exploration/content.md"
+            "title": "Lab 1: Register for Free Tier",
+            "description": "Register for a Free Tier account",
+            "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/cloud-login/register-free-tier-account.md"
         },
         {
-            "title": "Lab 3: Embedded Python Execution",
-            "description":"Embedded Python Execution",
-            "publisheddate": "01/15/2020",
-            "filename":"./embedded-python/content.md"
+            "title": "Lab 2: Create SSH Keys",
+            "description":"Create SSH Keys",
+            "filename":"https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/generate-ssh-key/generate-ssh-keys.md"
         },
         {
-            "title": "Lab 4: Using Regression to Estimate House Prices",
-            "description":"Using Regression to Estimate House Prices",
-            "publisheddate": "01/15/2020",
-            "filename":"./regression-use-case/content.md"
+            "title": "Lab 3: Setup ADB Shared Free Tier Instance",
+            "description":"Setup an Always Free autonomous database instance",
+            "filename":"../freetier/files/adb-provision.md"
         },
         {
-            "title": "Lab 5: Automatic Machine Learning with Python",
-            "description":"Automatic Machine Learning with Python",
-            "publisheddate": "01/15/2020",
-            "filename":"./automl-python/content.md"
+            "title": "Lab 4: Setup Compute Instance",
+            "description":"Setup a compute instance",
+            "filename":"../freetier/files/c360_create_compute_ft.md"
+        },
+        {
+            "title": "Lab 5: Create and enable a user in SQLDeveloper Web",
+            "description":"Create a user and enable SQLDeveloper Web for that user",
+            "filename":"../freetier/files/c360_sqldevweb_create_enable_user_ft.md"
+        },
+        {
+            "title": "Lab 6: Create and populate tables",
+            "description":"Create and populate tables with the Customer 360 dataset",
+            "filename":"../freetier/files/c360_create_tables_ft.md"
+        },
+        {
+            "title": "Lab 7: Create the graph",
+            "description":"Create the Customer 360 graph",
+            "filename":"../freetier/files/c360_create_graph_ft.md"
+        },
+        {
+            "title": "Lab 8: Graph Query and Analysis with JShell",
+            "description":"Graph Query and Analysis with JShell on the Free Tier compute",
+            "filename":"../freetier/files/customer_360_jshell_ft.md"
+        },
+        {
+            "title": "Lab 9: Graph Visualization",
+            "description":"Graph Query and Visualization of the Customer 360 data on the Free Tier compute",
+            "filename":"../freetier/files/customer_360_graphviz_ft.md"
         }
     ]
 }
