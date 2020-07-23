@@ -1,21 +1,20 @@
-# Provision the Lab Environment
+# Provision Lab Environment
 
 ## Introduction
 
-The lab environment for this workshop will be provisioned in Oracle Cloud Infrastructure, and you will access it from a local machine. To minimize the provisioning steps and automate the process, you will execute a set of pre-built Terraform scripts from **Oracle Cloud Infrastructure (OCI) Cloud Shell** to create the cloud resources.
+The lab environment for this workshop will be provisioned in Oracle Cloud Infrastructure, and you will access it from a local machine. To minimize the steps and automate the provisioning process, you will execute a set of pre-built Terraform scripts from **Oracle Cloud Infrastructure (OCI) Cloud Shell**.
 
 >[Terraform](https://www.terraform.io) is a tool that allows you to programmatically manage, version, and provision IT infrastructure using "infrastructure as code". Terraform uses a declarative syntax to describe resources within your infrastructure and then persist it in configuration files that can be shared, reviewed, edited, versioned, preserved, and reused.
 
 >The [Oracle Cloud Infrastructure Terraform provider](https://www.terraform.io/docs/providers/oci/index.html) is a component that connects Terraform to Oracle Cloud resources that you want to manage.
 
-### Lab Environment Architecture
+### Lab Environment
 
-The lab environment for the workshop consists of the following components:
+The lab environment for the workshop will be built using the following Oracle components :
 
-* Oracle Cloud Infrastructure Compute Service
 * Oracle Autonomous Database
 * Oracle Graph Server and Client
-* Apache Zippelin for Graph visualization
+* Apache Zippelin and Graph Viz for visualizations
 
 ![](./images/lab-environment.jpg)
 

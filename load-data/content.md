@@ -1,4 +1,4 @@
-# Load the Retail Dataset
+# Load Retail Dataset
 
 ## Introduction
 
@@ -8,13 +8,13 @@ An open dataset of retail transactions is available for download from [UCI](http
 
 ## **STEP 1** : Download the Dataset
 
-1. Using **Cloud Shell** (or an SSH tool of choice), start an SSH session using your private key **labkey**, **{VM IP Address}**, and **opc** user.
+1. Using **Cloud Shell** (or any SSH tool of choice), start an SSH session using your private key **labkey**, **{VM IP Address}**, and **opc** user.
 
 ```
 <copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
 ```
 
-2. In the SSH session, switch the user to **oracle** and change directory to **/home/oracle/dataset**.
+2. Switch the user to **oracle** and change directory to **/home/oracle/dataset**.
 
 ````
 <copy>sudo su - oracle
@@ -163,9 +163,9 @@ OPTIONALLY ENCLOSED BY '"'
 
 4. Save the file and exit the editor (in vi/vim, press **Esc**, type **:wq** and hit **ENTER**). Ensure the file got created in the folder using **ls**.
 
-````
+```
 <copy>ls</copy>
-````
+```
 ![](./images/ls-sqlldr-ctl.png " ")
 
 5. Invoke SQL Loader using the following command line, replacing **{Retail Password}** and **{ADB Service Name}**.

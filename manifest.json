@@ -7,31 +7,31 @@
           "filename":"./about-the-workshop/content.md"
         },
         {
-          "title": "Lab 1: Provision the Environment",
-          "description":"Provision the Lab Environment",
+          "title": "Lab 1: Provision Environment",
+          "description":"Lab 1: Provision Lab Environment",
           "publisheddate": "01/15/2020",
           "filename":"./provision-environment/content_cs.md"
         },
         {
-          "title": "Lab 2: Load the Dataset",
-          "description":"Load the Retail Dataset",
+          "title": "Lab 2: Load Dataset",
+          "description":"Lab 2: Load Retail Dataset",
           "publisheddate": "01/15/2020",
           "filename":"./load-data/content.md"
         },
         {
-          "title": "Lab 3: Create the Property Graph",
-          "description":"Create the Property Graph",
+          "title": "Lab 3: Create Property Graph",
+          "description":"Lab 3: CCreate Property Graph",
           "filename":"./create-graph/content.md"
         },
         {
           "title": "Lab 4: Graph Query and Analysis",
           "description":"Lab 4: Graph Query and Analysis",
-          "filename":"./oldstuff/freetier/files/customer_360_jshell_ft.md"
+          "filename":"./analyze-zippelin/content.md"
         },
         {
           "title": "Lab 5: Graph Visualization",
           "description":"Lab 5: Graph Visualization",
-          "filename":"./oldstuff/freetier/files/customer_360_graphviz_ft.md"
+          "filename":"./visualize-graphviz/content.md"
         }
     ]
 }

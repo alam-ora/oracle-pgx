@@ -1,252 +1,258 @@
-## Create the Property Graph
+## Create Property Graph
 
-A property graph consists of a set of objects or vertices, and a set of arrows or edges connecting the objects. Vertices and edges can have multiple properties, which are represented as key-value pairs.
+A property graph consists of a set of objects or vertices and a set of arrows or edges connecting the vertices. Vertices and edges can have multiple properties, which are represented as key-value pairs.
 
-Each vertex has a unique identifier and can have:
+>Each **vertex** has a unique identifier and can have a set of outgoing edges; a set of incoming edges; and a collection of properties.
+>
+>Each **edge** has a unique identifier and can have an outgoing vertex; an incoming vertex; a text label that describes the relationship between the two vertices; and a collection of properties.
 
-* A set of outgoing edges
-* A set of incoming edges
-* A collection of properties
+Depending on your needs, there are two different approaches to how you can create property graphs in Oracle Database.
 
-Each edge has a unique identifier and can have:
+* **Graph Database use case.** You store your data as a property graph in Oracle Database and manage that data via graph APIs. Optionally, you may use Graph Server In-Memory Analyst (abbreviated as **PGX**) as an accelerator for expensive queries or to run graph algorithms on the entire graph. Note that the use of PGX is optional in this use case. For some applications the capabilities available in the database only are sufficient.
 
-* An outgoing vertex
-* An incoming vertex
-* A text label that describes the relationship between the two vertices
-* A collection of properties
+* **Analytics-only use case.** Your data is stored in relational form in the Oracle Database and you want to keep managing that data using standard PL/SQL. You are not interested in a "graph database" but still want to benefit from the analytical capabilities of PGX, which exploit the connectivity of your data for specific analytical use cases.
 
-Now that the tables are created and populated let's create a graph representation of the dataset.
+In this lab you will use PGX to create a property graph representation of the relational dataset (analytics-only use case).
 
-## **STEP 1** : Install Oracle Graph Server
+## **STEP 1** : Create a Keystore
+
+As the Graph Server will fetch data from an Oracle Database, you would need a database user with the required privileges, and with a password that must be stored in a Java **keystore** file for protection. Graph Server will then access this keystore for authentication.
+
+In this step you will use **keytool** (bundled with the JDK) to generate the **keystore** file for the **RETAIL** schema.
+
+>As a security best practice, it is preferred that Graph Server connects to the database with a read-only user or a user with "just-the-right" privileges on the schema, instead of the schema owner.
+
+1. Using **Cloud Shell** (or any SSH tool of choice), start an SSH session using your private key **labkey**, **{VM IP Address}**, and the **opc** user.
+
+>Skip this step (and the next) if you already have an SSH session to the compute instance as the **oracle** user.
+
+```
+<copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
+```
+
+2. Switch user to **oracle**.
+
+```
+<copy>sudo su - oracle</copy>
+```
+
+3. Create a new folder **/home/oracle/oracle-pg** to store lab files.
+
+```
+<copy>mkdir -p /home/oracle/oracle-pg
+cd /home/oracle/oracle-pg</copy>
+```
+
+4. Using **keytool**, generate the keystore to hold **RETAIL** user's password (recall the password you've chosen in the previous lab for RETAIL).
+
+  When you run **keytool -importpass**, you will be first prompted to choose a **keystore password** (with verification), and then prompted to enter the **{Retail Password}** (with verification).
+
+>**Please ensure you enter the correct passwords and in the correct order.**
+
+```
+<copy>
+keytool -importpass -alias database1 -keystore keystore.p12
+</copy>
+```
+![](./images/keytool-import-pass.png " ")
+
+5. Using **keytool**, verify the **keystore** was created. Enter the **keystore password** when prompted.
+
+```
+<copy>keytool -list -keystore keystore.p12</copy
+```
+![](./images/keytool-list.png " ")
+
+## **STEP 2** : Create a Graph Config JSON File
+
+The Graph Server is capable of creating an in-memory property graph at startup directly from the Oracle database, either from relational tables or Oracle Database Property Graph objects.
+
+To define the graph configuration to load at startup, you need to create a JSON file describing the location and properties of the graph. The file tells the Graph Server's in-memory analytics engine (PGX) where to source the data from, how the data looks like and the keystore alias to use. For example, when the source data is in relational format, the configuration file specifies a mapping from relational to graph format by using the concept of vertex and edge providers.
+
+The following steps will create a config file for PGX (used in a later step) to load **Oracle Retail** graph in memory, sourcing the data directly from relational tables in the RETAIL schema.
+
+1. Create a new file named **config-tables.json** using a command-line text editor of your choice (e.g. **vi** or **vim**).
+
+```
+<copy>cd ~/oracle-pg
+vi config-tables.json</copy>
+```
+
+2. Copy/paste the following content into the editor.
+
+```
+<copy>{
+  "jdbc_url":"jdbc:oracle:thin:@{ADB Service Name HIGH}",
+  "username":"retail",
+  "keystore_alias":"database1",
+  "name":"retail",
+  "vertex_providers": [
+    {
+      "name":"Customer",
+      "format":"rdbms",
+      "database_table_name":"CUSTOMERS",
+      "key_column":"CUSTOMER_ID",
+      "key_type":"string",
+      "props":[
+        {"name":"COUNTRY", "type":"string"}
+      ]
+    },
+    {
+      "name":"Product",
+      "format":"rdbms",
+      "database_table_name":"PRODUCTS",
+      "key_column":"STOCK_CODE",
+      "key_type":"string",
+      "props":[
+        {"name":"DESCRIPTION", "type":"string"}
+      ]
+    }
+  ],
+  "edge_providers": [
+    {
+      "name":"has_purchased",
+      "format":"rdbms",
+      "database_table_name":"PURCHASES",
+      "key_column":"PURCHASE_ID",
+      "source_column":"CUSTOMER_ID",
+      "destination_column":"STOCK_CODE",
+      "source_vertex_provider":"Customer",
+      "destination_vertex_provider":"Product",
+      "props":[
+        {"name":"QUANTITY", "type":"integer"},
+        {"name":"UNIT_PRICE", "type":"double"}
+      ]
+    },
+    {
+      "name":"purchased_by",
+      "format":"rdbms",
+      "database_table_name":"PURCHASES",
+      "key_column":"PURCHASE_ID",
+      "source_column":"STOCK_CODE",
+      "destination_column":"CUSTOMER_ID",
+      "source_vertex_provider":"Product",
+      "destination_vertex_provider":"Customer",
+      "props":[
+        {"name":"QUANTITY", "type":"integer"},
+        {"name":"UNIT_PRICE", "type":"double"}
+    ]
+  }
+]
+}
+</copy>
+```
+
+3. Replace the **{ADB Service Name HIGH}** with your Autonomous Database service name.
+
+  **Save** the file and **Exit** the editor (in vi/vim, press **Esc**, type **:wq** and hit **ENTER**).
+
+![](./images/config-tables-json.png " ")
+
+## **STEP 3** : Install Oracle Graph Server
 
 Oracle Graph Server and Client is a software package that works with Oracle Database. It includes the in-memory analytics server (PGX) and client libraries required to work with the Property Graph feature in Oracle Database. The package simplifies installation and provides access to the latest graph features and updates.
 
-1. In the previous SSH connection logged in as the **oracle** user, create a new folder to stage the Oracle Graph software.
+1. Download the Oracle Graph Server using a Pre-Authenticated Request (PAR) URL.
 
-````
-<copy>mkdir -p /home/oracle/software
-cd /home/oracle/software</copy>
-````
-
-2. Download the Graph Server using a Pre-Authenticated Request (PAR) URL as follows.
-
-````
+```
 <copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/oracle_pg/o/oracle-graph-20.2.0.x86_64.rpm</copy>
-````
+```
 
-3. Install the Graph Server.
+2. Install the Graph Server.
 
 ````
 <copy>sudo yum install -y oracle-graph-20.2.0.x86_64.rpm</copy>
 ````
+![](./images/yum-install-graph.png " ")
 
-[PIC]
+3. The Graph server is a web application that listens on port 7007 by default. The Linux firewall will block this port, unless specifically opened by a rule, using the following commands.
 
-4. The Graph server is a web application that listens on port 7007 by default. The Linux firewall will block this port, unless specifically opened by a rule, using the following commands:
-
-````
+```
 <copy>sudo firewall-cmd --permanent --zone=public --add-port=7007/tcp</copy>
-````
-````
+```
+```
 <copy>sudo firewall-cmd --reload</copy>
-````
+```
+![](./images/sudo-firewall.png " ")
 
-[PIC]
+## **STEP 4** : Configure Oracle Graph Server
 
-5. Edit the graph server config file **`/etc/oracle/graph/server.conf`** using your favorite text editor.
+As mentioned earlier, the Graph Server needs to be configured at startup to load the **Oracle Retail** graph using the config file created earlier.
+
+1. First, edit the graph server configuration file **/etc/oracle/graph/server.conf** using your favorite text editor.
 
 ```
 <copy>vi /etc/oracle/graph/server.conf</copy>
 ```
 
-6. Change the line  **`"enable_tls": true`** to  **`"enable_tls": false`**. Save the file and exit.
+2. Modify the line  **`"enable_tls": true`** to  **`"enable_tls": false`**.
 
-[PIC]
+  **SAVE** the file and **EXIT**.
 
-## **STEP 2** : Start Graph Server
+![](./images/enable-tls-false.png " ")
 
-1. In the previous SSH connection logged in as the **oracle** user, ensure **JAVA\_HOME** and **JAVA11\_HOME** environment variables point to **JDK1.8** and **JDK-11**, respectively.
-
-````
-<copy>env | grep JAVA</copy>
-````
-
-[PIC]
-
-2. As the **`oracle`** user, start the server using **`/opt/oracle/graph/pgx/bin/start-server`**:
+3. Next, edit the configuration file for the Graph Server PGX engine located at **/etc/oracle/graph/pgx.conf**.
 
 ```
-<copy>/opt/oracle/graph/pgx/bin/start-server</copy>
+<copy>vi /etc/oracle/graph/pgx.conf</copy>
 ```
 
-3. Once the Graph server is fully started, you should see the following message displayed:
-
->INFO: Starting ProtocolHandler ["http-nio-7007"]
-
-[PIC]
-
-> Keep the above SSH session to the Graph server running and start a new session for the remaining lab steps.
-
-## **STEP 3**: Start Graph Client Shell
-
-1. Once the Graph Server is up, open a new SSH connection to the same compute instance and switch user to **`oracle`**.
-
-````
-<copy>sudo su - oracle</copy>
-````
-
-2. Start a Graph Client JShell session that connects to the Graph server at the default port **7007**.
-
-````
-<copy>/opt/oracle/graph/bin/opg-jshell --base_url http://localhost:7007</copy>
-````
-
-[PIC]
-
-## **STEP 4**: Create the Property Graph
-
-Once the Graph Client JShell starts, create the property graph by completing the following steps.
-
-### Setup the Database Connection
-
-Setup the database connection using JDBC and the Wallet.
-
->The Autonomous Database Wallet has been pre-downloaded and extracted to **/home/oracle/wallets/ADB_Wallet** folder on the compute instance.
-
-1. In the JShell prompt, copy/paste the following command replacing the **`<<ADB_Service_Name>>`** with yours, to set the JDBC URL **`"jdbcUrl"`** variable (note the command needs to be in one line).
+4. Add a reference to the PGX config file created earlier (**/home/oracle/oracle-pg/config-tables.json**) for **Oracle Retail**, using **preload_graphs** clause.
 
 ```
-var jdbcUrl = "jdbc:oracle:thin:@<<ADB_Service_Name>>?TNS_ADMIN=/home/oracle/wallets/ADB_Wallet";
+<copy>{"path": "/home/oracle/oracle-pg/config-tables.json", "name": "Online Retail"}</copy>
 ```
+![](./images/pgx-conf.png " ")
 
-2. Set the database user for the JDBC connection.
+5. **SAVE** the file and **EXIT**.
 
-````
-<copy>var user = "RETAIL";</copy>
-````
+## **STEP 5** : Start Graph Server
 
-3. Set the password for the database user, replacing **`<<Retail_Password>>`** with the **RETAIL** user's password (keeping the quotes **" "** intact)
+Configure the Java environment prior to starting the Graph Server.
 
-```
-var pass = "<<Retail_Password>>";
-```
-
-4. Define the final JDBC connection variable and observe the output is as expected.
+1. Setup **JAVA\_OPTS** to use the autonomous database wallet, which is downloaded in the /home/oracle/wallets/ADB_Wallet folder.
 
 ```
-<copy>var conn = DriverManager.getConnection(jdbcUrl, user, pass);</copy>
-// example jshell output
-// conn ==> oracle.jdbc.driver.T4CConnection@54d11c70
+<copy>export JAVA_OPTS="-Doracle.net.tns_admin=/home/oracle/wallets/ADB_Wallet -Doracle.jdbc.fanEnabled=false"</copy>
 ```
 
-5. Set the connection properties (mainly, set auto commit to false) and create the PGQL connection.
+2. Start the Graph server using the **start-server** command. Note the **--secret-store** clause is used to specify the keystore created earlier.
 
 ```
-<copy>conn.setAutoCommit(false);
-var pgql = PgqlConnection.getConnection(conn);</copy>
+<copy>/opt/oracle/graph/pgx/bin/start-server --secret-store /home/oracle/oracle-pg/keystore.p12</copy>
 ```
 
-6. Observe the output and verify the connection was successful.
+3. Enter the **keystore** password when prompted.
 
-[PIC]
+![](./images/graph-server-start.png " ")
 
-### Create the Property Graph
+4. Wait for a few minutes for the Graph Server to start and load the **Online Retail** graph from the autonomous database. You see the message **"INFO: Starting ProtocolHandler ["http-nio-7007"]""** once the startup is successful.
 
-1. Copy/paste the following command to your JShell session. This will set **cpgStmtStr** variable with the required **CREATE PROPERTY GRAPH** command.
+![](./images/graph-server-started.png " ")
 
->Note that **Customers** and **Products** become the graph vertices and **Purchases** become the edges.
+## **STEP 6**: Validate Property Graph
 
-```
-<copy>// create the graph from the existing tables
-var cpgStmtStr = "CREATE PROPERTY GRAPH retail " +
-"  VERTEX TABLES (" +
-"    customers " +
-"      LABEL Customer " +
-"      PROPERTIES ( " +
-"        customer_id AS customer_id " +
-"      ) " +
-"  , products " +
-"      LABEL Product " +
-"      PROPERTIES (" +
-"        stock_code AS stock_code " +
-"      ) " +
-"  ) " +
-"  EDGE TABLES (" +
-"    purchases " +
-"      KEY (purchase_id)" +
-"      SOURCE KEY(customer_id) REFERENCES customers " +
-"      DESTINATION KEY(stock_code) REFERENCES products " +
-"      LABEL purchased " +
-"      PROPERTIES (" +
-"        quantity AS quantity " +
-"      , unit_price AS unit_price " +
-"      )" +
-"  )";</copy>
-```
+The Graph Server automatically runs a graph visualization tool **GraphViz** on port 7007. Verify the Graph Server startup using GraphViz.
 
-[PIC]
-
-2. Execute the PGQL DDL to first DROP any existing graph of the same name before creating it.
-
->Ignore the drop error when the graph doesn't exist.
+1. From your laptop/desktop, open a new web browser window and point to the following URL, replacing the **{VM IP Address}** with your lab compute instance IP Address.
 
 ```
-// drop any existing graph
-<copy>var dropPgStmt = "DROP PROPERTY GRAPH retail";
-pgql.prepareStatement(dropPgStmt).execute();</copy>
+<copy>http://</copy>{VM IP Address}<copy>:7007/ui</copy>
 ```
 
-3. Finally, create the graph using **prepareStatement**.
+2. Verify you are presented the following home page for **GraphViz**.
 
-```
-<copy>pgql.prepareStatement(cpgStmtStr).execute();</copy>
-```
-[PIC]
+![](./images/graphviz-home.png " ")
 
->The create graph process can take 3-4 minutes depending on various factors such as network bandwidth and database load.
+3. Observe the graph **Online Retail** shows up in the drop-down as in the screenshot as this is the indication that the graph was successfully loaded at startup.
 
-## **STEP 4**: Validate the Property Graph
+![](./images/graphviz-home-retail-graph.png " ")
 
-1. Check that the graph was successfully created by observing the output.
+4. Run a sample PGQL Graph query on **Retail Graph**. Modify the row **LIMIT** to **1000** and click the **Run** button.
 
-[PIC]
-
-2. Copy/paste and run the following statements in the JShell.
-
-3. Copy the following code, paste, and execute it in the JShell.
-
-```
-<copy>
-// create a helper method for preparing, executing, and printing the results of PGQL statements
-Consumer&lt;String&gt; query = q -> { try(var s = pgql.prepareStatement(q)) { s.execute(); s.getResultSet().print(); } catch(Exception e) { throw new RuntimeException(e); } }
-</copy>
-// sample jshell output
-// query ==> $Lambda$583/0x0000000800695c40@65021bb4
-```
-
-4. Then copy, paste, and execute the following.
-
-```
-<copy>
-// query the graph
-
-// what are the edge labels i.e. categories of edges
-query.accept("select distinct label(e) from customer_360 match ()-[e]->()");
-
-// what are the vertex types i.e. values of the property named "type"
-query.accept("select distinct v.type from customer_360 match (v)-[e]->()");
-
-// how many vertices with each type/category
-query.accept("select count(distinct v), v.type from customer_360 match (v) group by v.type");
-
-// how many edges with each label/category
-query.accept("select count(e), label(e) from customer_360 match ()-[e]->() group by label(e)");
-
-</copy>
-```
-
-[PIC]
+![](./images/graphviz-1000-rows.png " ")
 
 ## Summary
 
-You have successfully created the property graph representation of sample dataset using Oracle Autonomous Database and Oracle Graph Server. Please proceed to the next lab using the **Lab Contents** menu ![](./images/lab-contents-icon.png) on your right.
+You have successfully created the property graph representation of sample dataset using Oracle Autonomous Database and Oracle Graph Server. Please proceed to the next lab using the **Lab Contents** menu on your right.
+- If the menu is not displayed, click the menu button ![](./images/menu-button.png) on the top right  make it visible
