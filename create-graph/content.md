@@ -8,7 +8,7 @@ A property graph consists of a set of objects or vertices and a set of arrows or
 
 Depending on your needs, there are two different approaches to how you can create property graphs in Oracle Database.
 
-* **Graph Database use case.** You store your data as a property graph in Oracle Database and manage that data via graph APIs. Optionally, you may use Graph Server In-Memory Analyst (abbreviated as **PGX**) as an accelerator for expensive queries or to run graph algorithms on the entire graph. Note that the use of PGX is optional in this use case. For some applications the capabilities available in the database only are sufficient.
+* **Graph Database use case.** You store your data as a property graph in Oracle Database and manage that data via graph APIs. Optionally, you may use in-memory graph server (abbreviated as **PGX**) as an accelerator for expensive queries or to run graph algorithms on the entire graph. Note that the use of PGX is optional in this use case. For some applications the capabilities available in the database only are sufficient.
 
 * **Analytics-only use case.** Your data is stored in relational form in the Oracle Database and you want to keep managing that data using standard PL/SQL. You are not interested in a "graph database" but still want to benefit from the analytical capabilities of PGX, which exploit the connectivity of your data for specific analytical use cases.
 

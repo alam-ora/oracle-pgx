@@ -8,7 +8,7 @@ Property graphs have become a useful way to model, manage, query and analyze muc
 
 **Oracle Database** delivers a high performance and scalable graph data management platform for enterprises. Oracle Graph technologies offer State-of-the art features and functionality required for enterprise grade applications: fine-grained security, high availability, easy manageability, and integration with other data in an application. Oracle’s converged, multi-model database natively supports graphs, spatial, XML, JSON and other types of data.
 
-**Oracle Database Property Graph** supports graph storage, indexing, and search; a powerful in-memory analyst with 50 built-in, parallel analytic functions; a graph query language and developer APIs. Graph algorithms enable you to explore and discover relationships in social networks, IoT, big data, data warehouses and complex transaction data for applications such as fraud detection in banking, customer 360, and smart manufacturing.
+**Oracle Database Property Graph** supports graph storage, indexing, and search; a powerful in-memory graph server with 50 built-in, parallel analytic functions; a graph query language and developer APIs. Graph algorithms enable you to explore and discover relationships in social networks, IoT, big data, data warehouses and complex transaction data for applications such as fraud detection in banking, customer 360, and smart manufacturing.
 
 >Watch this [video](https://www.youtube.com/watch?v=-DYVgYJPbQA) for a brief overview of Oracle Graph.
 
