@@ -142,6 +142,8 @@ In this step you will load the CSV file into the **TRANSACTIONS** table of **RET
 
 3. Copy/paste the following content into the editor and save the **sqlldr.ctl** file. This file is the control file used by SQL Loader to make sense of the input file format.
 
+>When editing with vi or vim, press **i** to enable the **INSERT** mode before pasting.
+
 ````
 <copy>OPTIONS (SKIP=1)
 LOAD DATA
