@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The lab environment for this workshop will be provisioned in Oracle Cloud Infrastructure, and you will access it from a local machine. To minimize the steps and automate the provisioning process, you will execute a set of pre-built Terraform scripts from **Oracle Cloud Infrastructure (OCI) Cloud Shell**.
+The lab environment for this workshop will be hosted in Oracle Cloud Infrastructure, and you will access it from a local machine. To minimize the steps and automate the provisioning process, you will execute a set of pre-built Terraform scripts from **Oracle Cloud Infrastructure (OCI) Cloud Shell**.
 
 >[Terraform](https://www.terraform.io) is a tool that allows you to programmatically manage, version, and provision IT infrastructure using "infrastructure as code". Terraform uses a declarative syntax to describe resources within your infrastructure and then persist it in configuration files that can be shared, reviewed, edited, versioned, preserved, and reused.
 
@@ -10,7 +10,7 @@ The lab environment for this workshop will be provisioned in Oracle Cloud Infras
 
 ### Lab Environment
 
-The lab environment for the workshop will be built using the following Oracle components :
+The lab environment for the workshop consists of :
 
 * Oracle Autonomous Database
 * Oracle Graph Server and Client
@@ -178,14 +178,18 @@ Run the bash script as follows.
 ````
 ![](./images/pre-terraform-apply.png " ")
 
-5. Upon a successful execution of Terraform apply, you will see the following values output on the screen. Make a note of them (e.g. save to notepad) as you will be needing them in the later steps.
-
-	* ADB DB name
-	* ADB Service Name HIGH
-	* ADB Service Name TP
-	* VM IP Address
+5. Upon a successful execution of Terraform apply, you will see the following values output on the screen.
 
 ![](./images/post-terraform-apply.png " ")
+
+6. Please **Copy** the above values and save in a notepad, as the labs will refer to them later (using the **Referred As** names).
+
+| Value       | Referred As | Description
+|----------------|-------------|----------------------|
+|ADB DB name| {ADB DB Name} | Autonomous Database Name
+|ADB Service Name HIGH|{ADB Service Name HIGH}|Database Service Name for ADW
+|ADB Service Name TP|{ADB Service Name TP}|Database Service Name for TP
+|VM IP Address|{VM IP Address}|IP Address of the OCI VM
 
 ## **STEP 6** : Validate Provisioning
 
@@ -193,7 +197,7 @@ Run the bash script as follows.
 
 1. Using **Cloud Shell**, start an SSH session using your private key **labkey**, **{VM IP Address}**, and **opc** user.
 
->**Note:** Make sure that you replace the string (including **{}**) with the values obtained from Terraform apply.
+>**Note:** Make sure that you replace the string, including the curly brackets {}, with the values obtained from Terraform apply.
 
 ````
 <copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
@@ -204,7 +208,7 @@ Run the bash script as follows.
 
 The Autonomous Database provisioned for this lab will hold the sample data. Validate the connectivity to the autonomous database using the below steps.
 
-1. In the previous SSH session logged in as the **opc** user, switch to the **oracle** user.
+1. In the SSH session, switch to user to **oracle**.
 
 ````
 <copy>sudo su - oracle</copy>
@@ -218,7 +222,13 @@ The Autonomous Database provisioned for this lab will hold the sample data. Vali
 ```
 ![](./images/sqlplus-admin.png " ")
 
-## Summary
+You may proceed to the next lab.
 
-You have now successfully setup the lab environment to be used for the remaining steps. Please proceed to the next lab using the **Lab Contents** menu on your right.
-- If the menu is not displayed, click the menu button ![](./images/menu-button.png) on the top right  make it visible
+## Acknowledgements
+
+- **Author** - Maqsood Alam, Product Manager, Oracle Database
+- **Contributor** - Ryota Yamanaka, Product Manager, Oracle Spatial and Graph
+* **Last Updated By/Date** - Maqsood Alam, Oct 2020
+
+## See an issue?
+Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.
