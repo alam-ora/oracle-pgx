@@ -8,7 +8,7 @@ An open dataset of retail transactions is available for download from [UCI](http
 
 **IMPORTANT NOTE**
 
-You may continue to use **Cloud Shell** to SSH into your lab environment. However, if you choose to use a different SSH client, please setup your client to connect to the lab VM using the **labkey** generated in the previous lab.
+You may continue to use **Cloud Shell** to SSH into your lab environment. However, if you choose to use a different SSH client, please setup your client to connect to the lab VM using the **labkey** generated in the previous lab. Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/GSG/Tasks/testingconnection.htm) for further instructions.
 
 ## **STEP 1** : Download the Dataset
 
