@@ -34,18 +34,18 @@ curl -X POST -H 'Content-Type: application/json' -d '{"username": "retail", "pas
 
 ![](./images/auth-token.png " ")
 
-## **STEP 2** : Create a Graph Config JSON File
+## **STEP 2** : Configure Graph Config JSON File
 
-To define the graph configuration to load, you need to create a JSON file describing the location and properties of the graph. The file tells the Graph Server's in-memory analytics engine where to source the data from, the data definitions and the Keystore alias to use.
+To define the graph configuration to load, you need a JSON file describing the location and properties of the graph. The file tells the Graph Server's in-memory analytics engine where to source the data from, the data definitions and the Keystore alias to use.
 
 For example, when the source data is in relational format, the configuration file specifies a mapping from relational to graph format by using the concept of vertex and edge providers.
 
-The following steps will create a config file for PGX to load **Oracle Retail** graph in memory, sourcing the data directly from relational tables in the RETAIL schema.
+The following steps will modify a previously created config file for PGX to load **Oracle Retail** graph in memory, sourcing the data directly from relational tables in RETAIL schema.
 
 1. Edit the **config-tables.json** file using your favorite text editor (e.g. **vi** or **vim**).
 
 ```
-<copy>vi ~/oracle-pg/config-tables.json</copy>
+<copy>vi ~/oracle-pg/graphs/config-tables.json</copy>
 ```
 
 2. Replace the **{ADB Service Name HIGH}** in **"jdbc_url"** with your Autonomous Database service name, as follows :
@@ -80,9 +80,10 @@ The following steps will create a config file for PGX to load **Oracle Retail** 
 
 ```
 <copy>
-var graph = session.readGraphWithProperties("/home/oracle/oracle-pg/config-tables.json", "Online Retail");
+var graph = session.readGraphWithProperties("/home/oracle/oracle-pg/graphs/config-tables.json", "Online Retail");
 </copy>
 ```
+NEW PIC NEEDED
 ![](./images/load-graph.png " ")
 
 5. Test the graph by running a simple query that displays the list of products purchased by a customer.
@@ -138,6 +139,8 @@ opg-jshell> <copy>session.getId();
 </copy>
 ```
 ![](./images/get-session-id.png " ")
+
+4. Exit from the opg-jshell by hitting **CTRL-D**.
 
 You may proceed to the next lab.
 

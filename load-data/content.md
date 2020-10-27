@@ -8,7 +8,7 @@ An open dataset of retail transactions is available for download from [UCI](http
 
 **IMPORTANT NOTE**
 
-You may continue to use **Cloud Shell** to SSH into your lab environment. However, if you choose to use a different SSH client, please setup your client to connect to the lab VM using the **labkey** generated in the previous lab. Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/GSG/Tasks/testingconnection.htm) for further instructions.
+You may continue to use **Cloud Shell** to SSH into your lab environment. However, if you choose to use a different SSH client, please setup your client to connect to the lab VM using the **labkey** generated in the previous lab. Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/GSG/Tasks/testingconnection.htm ) for further instructions.
 
 ## **STEP 1** : Download the Dataset
 
@@ -81,8 +81,9 @@ EXIT;
 >Ignore any **ORA-00942: table or view does not exist** errors.
 
 ````
-SQL> <copy>@/home/oracle/oracle-pg/create-tables-retail.sql</copy>
+SQL> <copy>@/home/oracle/oracle-pg/scripts/create-tables-retail.sql</copy>
 ````
+!!NEW PIC NEEDED!!
 ![](./images/sqlplus-retail-schema-create.png " ")
 
 6. **EXIT** the above SQL Plus session.
@@ -121,9 +122,9 @@ The transactional data that was just loaded needs to be normalized in a relation
 ````
 
 2. Populate the normalized tables using **normalize-tables.sql** script located in **~/oracle-pg** folder.
-
+NEW PIC NEEDED
 ````
-SQL> <copy>@/home/oracle/oracle-pg/normalize-tables.sql</copy>
+SQL> <copy>@/home/oracle/oracle-pg/scripts/normalize-tables.sql</copy>
 ````
 ![](./images/denormalize-load.png " ")
 

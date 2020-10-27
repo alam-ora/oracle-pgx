@@ -55,7 +55,7 @@ The Highlights tab includes customization options that let you modify the appear
 
 You can export and import highlight options by clicking the **Save** and **Load** buttons in the main window. Save lets you persist the highlight options, and Load lets you apply previously saved highlight options.
 
-1. Download a previously saved **highlights.json** file and save it to your local machine. In this file, the highlights for the retail graph were configured to add icons and change the size of icons according to personalized page ranks (PPR).
+1. Download [**highlights.json**](https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/oracle_pg/o/highlights.json) and save it to your local machine. In this file, the highlights for the retail graph were configured to add icons and change the size of icons according to personalized page ranks (PPR).
 
 2. Import highlights.json by clicking **Import**.
 
