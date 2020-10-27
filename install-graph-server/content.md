@@ -53,7 +53,7 @@ The package simplifies installation and provides access to the latest graph feat
 2. Install the Graph Server.
 
 ````
-<copy>sudo yum install -y oracle-graph-20.3.0.x86_64.rpm</copy>
+<copy>sudo yum install -y oracle-graph-20.4.0.x86_64.rpm</copy>
 ````
 ![](./images/yum-install-graph.png " ")
 
