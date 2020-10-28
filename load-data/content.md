@@ -1,61 +1,45 @@
-# Load Retail Dataset
+# Load a Retail Dataset
 
 ## Introduction
 
-An open dataset of retail transactions is available for download from [UCI](https://archive.ics.uci.edu/ml/datasets/online+retail) (and also [Kaggle](https://www.kaggle.com/jihyeseo/online-retail-data-set-from-uci-ml-repo)). This dataset contains real-world transactions of customer purchases along with product and customer data - suitable to showcase a Graph-based recommendation engine use case.
+An open dataset of retail transactions is available for download from [UCI](https://archive.ics.uci.edu/ml/datasets/online+retail) (and also [Kaggle](https://www.kaggle.com/jihyeseo/online-retail-data-set-from-uci-ml-repo)). This dataset contains real-world transactions of customer purchases along with product and customer data - very suitable for generating real-time product recommendations based on property graph.
 
 >According to [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/online+retail), "the Online Retail Dataset is a transnational data set which contains all the transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail. The company mainly sells unique all-occasion gifts. Many customers of the company are wholesalers."
 
 **IMPORTANT NOTE**
 
-You may continue to use **Cloud Shell** to SSH into your lab environment. However, if you choose to use a different SSH client, please setup your client to connect to the lab VM using the **labkey** generated in the previous lab. Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/GSG/Tasks/testingconnection.htm ) for further instructions.
+You may use [Cloud Shell](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/cloudshellintro.htm) or any SSH client of your choice to SSH into the lab environment. Whatever method you choose, ensure the **SSH Keys** are setup for the client. Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/GSG/Tasks/testingconnection.htm ) for configuring various SSH clients to connect to OCI Compute instance.
 
-## **STEP 1** : Download the Dataset
+## **STEP 1** : Create the Database Schema
 
 1. Start an SSH session using your private key **labkey**, **{VM IP Address}**, and **opc** user.
+> Note the actual steps will depend on the SSH client used.
 
-````
+```
 <copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
-````
+```
 
-2. In the SSH session, switch to user to **oracle** and change directory to **/home/oracle/dataset**.
+2. Switch current user to **oracle**.
 
-````
-<copy>sudo su - oracle
-cd /home/oracle/dataset</copy>
-````
-
-3. Download the Online Retail dataset using **wget** using a direct download URL from UCI.
+>All lab steps are run as the oracle user, so ensure in all sessions that you are connected as **oracle** before running any commands.
 
 ````
-<copy>wget https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx -O OnlineRetail.xlsx</copy>
+<copy>sudo su - oracle</copy>
 ````
-![](./images/wget-online-retail.png " ")
 
-4. Once the download completes, convert the Excel file to CSV format using open source **libreoffice**, as the data needs to be converted to plain text for loading.
-
->The file conversion takes a few minutes to complete.
-
-````
-<copy>libreoffice --headless --convert-to csv OnlineRetail.xlsx</copy>
-````
-![](./images/libreoffice.png " ")
-
-## **STEP 2** : Create the Database Schema
-
-1. In the previous SSH session connected as the **oracle** user, start a SQL Plus session and connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
+3. Start a SQL Plus session and connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
 
 ```
 <copy>sqlplus ADMIN/</copy>{ADB Admin Password}@{ADB Service Name HIGH}
 ```
 
-2. In the SQL Plus session, create the **RETAIL** database user with a suitable **{Retail Password}** conforming to [ADB password rules](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/manage-users-admin.html#GUID-B227C664-EBA0-4B5E-B11C-A56B16567C1B).
+4. In the SQL Plus session, create the **RETAIL** database user with a suitable **{Retail Password}** conforming to [ADB password rules](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/manage-users-admin.html#GUID-B227C664-EBA0-4B5E-B11C-A56B16567C1B).
 
 ```
 <copy>CREATE USER retail IDENTIFIED BY</copy> {Retail Password};
 ```
 
-3. Grant the required privileges to the **RETAIL** user.
+5. Grant the required privileges to the **RETAIL** user.
 
 >The Oracle Graph server by default uses an Oracle database as the identity manager, which means that you log into the graph server using Oracle Database credentials. The Database user needs to be granted appropriate privileges to support this authentication method, mainly the **CREATE SESSION** and  **GRAPH\_DEVELOPER** or **GRAPH\_ADMINISTRATOR** role.
 
@@ -70,37 +54,51 @@ EXIT;
 
 ![](./images/sqlplus-create-retail-user.png " ")
 
-4. Start a SQL Plus session using the **RETAIL** user.
+6. Start a SQL Plus session again but this time connect as the **RETAIL** user.
 
 ```
 <copy>sqlplus RETAIL/</copy>{Retail Password}@{ADB Service Name HIGH}
 ```
 
-5. Create the tables for the dataset using **create-tables-retail.sql** script located in **~/oracle-pg** folder.
-
+7. Create the tables for the dataset using **create-tables-retail.sql** script located in **~/oracle-pg/scripts** folder.
 >Ignore any **ORA-00942: table or view does not exist** errors.
 
 ````
 SQL> <copy>@/home/oracle/oracle-pg/scripts/create-tables-retail.sql</copy>
 ````
-!!NEW PIC NEEDED!!
+
+8. **EXIT** the SQL Plus session.
+
+````
+SQL> <copy>EXIT;</copy>
+````
 ![](./images/sqlplus-retail-schema-create.png " ")
 
-6. **EXIT** the above SQL Plus session.
+## **STEP 2** : Load the Dataset
 
-## **STEP 3** : Load the Dataset
-
-The retail dataset was earlier converted from Excel to the CSV format making it readable by utilities such as Oracle **SQL Loader**.
-
-Load the CSV file into **TRANSACTIONS** table using **SQL Loader**.
-
-1. In the previous SSH connection logged in as the **oracle** user, ensure you are in the right folder.
+1. In the previous SSH connection as the **oracle** user, change directory to **/home/oracle/dataset** as all files for the load are in this folder.
 
 ````
 <copy>cd /home/oracle/dataset</copy>
 ````
 
-2. A SQL Loader control file is provided for loading the dataset into the TRANSACTIONS table (control file defines the format of the input file to SQL Loader).
+2. Download the Online Retail dataset using **wget** using a direct download URL from UCI.
+
+````
+<copy>wget https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx -O OnlineRetail.xlsx</copy>
+````
+![](./images/wget-online-retail.png " ")
+
+3. Once the download completes, convert the Excel file to CSV format using open source **libreoffice**, as the data needs to be converted to plain text for loading.
+
+>The file conversion takes a few minutes to complete.
+
+````
+<copy>libreoffice --headless --convert-to csv OnlineRetail.xlsx</copy>
+````
+![](./images/libreoffice.png " ")
+
+4. Load the CSV file into **TRANSACTIONS** table using **SQL Loader** and the control file provided (control file defines the format of the input file to SQL Loader).
 
   Invoke SQL Loader using the following command line, replacing **{Retail Password}** and **{ADB Service Name}**.
 
@@ -109,26 +107,30 @@ Load the CSV file into **TRANSACTIONS** table using **SQL Loader**.
 ````
 ![](./images/sqlldr-exec.png " ")
 
-3. Observe that over 540k rows got loaded successfully.
+5. Observe in the above output that over **540k** rows got loaded successfully.
 
-## **STEP 4** : Populate Tables for Graph
+## **STEP 3** : Populate Tables for Graph
 
-The transactional data that was just loaded needs to be normalized in a relational set of entities, mainly **CUSTOMERS**, **PRODUCTS**, **PURCHASES** and **PURCHASES_DISTINCT**. These tables will be used to build the property graph later.
+The transactional data that was just loaded needs to be normalized into relational entities, mainly **CUSTOMERS**, **PRODUCTS**, **PURCHASES** and **PURCHASES_DISTINCT**. These tables will be used to build the property graph later.
 
-1. In the previous SSH connection logged in as the **oracle** user, start a SQL Plus session as the **RETAIL** user.
+1. In the previous SSH connection as the **oracle** user, start a SQL Plus session as the **RETAIL** user.
 
 ````
 <copy>sqlplus RETAIL/</copy>{Retail Password}@{ADB Service Name HIGH}
 ````
 
-2. Populate the normalized tables using **normalize-tables.sql** script located in **~/oracle-pg** folder.
-NEW PIC NEEDED
+2. Populate the normalized tables using **normalize-tables.sql** script located in **~/oracle-pg/scripts** folder.
+
 ````
 SQL> <copy>@/home/oracle/oracle-pg/scripts/normalize-tables.sql</copy>
 ````
 ![](./images/denormalize-load.png " ")
 
 3. Verify the above script completes successfully. **EXIT** the SQL session.
+
+````
+SQL> <copy>EXIT;</copy>
+````
 
 You may proceed to the next lab.
 

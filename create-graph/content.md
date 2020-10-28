@@ -18,9 +18,25 @@ In this lab you will use PGX to create a property graph representation of the re
 
 ## **STEP 1**: Create an Authentication Token for Graph Server
 
-1. Open a new SSH connection to the lab VM.
+1. Start a new SSH session using your private key **labkey**, **{VM IP Address}**, and **opc** user.
 
-2. Generate and use a token for making authenticated remote requests to the graph server.
+```
+<copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
+```
+
+2. Switch current user to **oracle**.
+
+```
+<copy>sudo su - oracle</copy>
+```
+
+3. Change directory to **/home/oracle/oracle-pg**.
+
+```
+<copy>cd /home/oracle/oracle-pg</copy>
+```
+
+4. Generate and use a token for making authenticated remote requests to the graph server.
 
   Run the following command to sign in to the graph server and create the token, replacing **{RETAIL_PASSWORD}** with the password of the RETAIL schema :
 
@@ -30,7 +46,7 @@ curl -X POST -H 'Content-Type: application/json' -d '{"username": "retail", "pas
 </copy>
 ```
 
-3. Copy the token as shown below and paste it in a text editor. You can now use this token to make authenticated remote requests to the graph server.
+5. Copy the token as shown below and paste it in a text editor. You can now use this token to make authenticated remote requests to the graph server.
 
 ![](./images/auth-token.png " ")
 
@@ -60,9 +76,9 @@ The following steps will modify a previously created config file for PGX to load
 
 3. **Save** the file and **Exit** the editor (in vi/vim, press **Esc**, type **:wq** and hit **ENTER**).
 
-## **STEP 3**: Create the Property Graph using JShell
+## **STEP 3**: Create a Property Graph using Graph Shell
 
-1. Connect to Graph Server using Graph Client (JShell) and the authentication token just created using an **opg-jshell** session.
+1. Connect to Graph Server using Graph Shell (JShell) and the authentication token just created using an **opg-jshell** session.
 
 ```
 <copy>
@@ -83,7 +99,6 @@ The following steps will modify a previously created config file for PGX to load
 var graph = session.readGraphWithProperties("/home/oracle/oracle-pg/graphs/config-tables.json", "Online Retail");
 </copy>
 ```
-NEW PIC NEEDED
 ![](./images/load-graph.png " ")
 
 5. Test the graph by running a simple query that displays the list of products purchased by a customer.
@@ -94,55 +109,9 @@ opg-jshell> <copy>graph.queryPgql(" SELECT ID(c), ID(p), p.description FROM MATC
 ```
 ![](./images/simple-graph-query.png " ")
 
-## **STEP 4**: Compute Page Rank using PPR
+6. **DO NOT CLOSE** the above graph shell session as you will need it in the next lab.
 
-Page Rank (PR) measures stationary distribution of one specific kind of random walk that starts from a random vertex and in each iteration, with a predefined
-probability p, jumps to a random vertex, and with probability1-p follows a random outgoing edge of the current vertex.
-
-k (PPR) is the same as PR other
-than the fact that jumps are
-back to one of a given set of starting vertices.
-
-1. Run Personalized PageRank (PPR) having the customer "cust_12353" as a focused node.
-
-```
-opg-jshell> <copy>var vertex = graph.getVertex("cust_12353");</copy>
-opg-jshell> <copy>analyst.personalizedPagerank(graph, vertex)
-</copy>
-```
-![](./images/run-ppr.png " ")
-
-2. Get the top 10 recommended products.
-
-```
-opg-jshell> <copy>
-graph.queryPgql(
-"  SELECT ID(p), p.description, p.pagerank " +
-"  MATCH (p) " +
-"  WHERE LABEL(p) = 'Product' " +
-"    AND NOT EXISTS ( " +
-"     SELECT * " +
-"     MATCH (p)-[:purchased_by]->(a) " +
-"     WHERE ID(a) = 'cust_12353' " +
-"    ) " +
-"  ORDER BY p.pagerank DESC" +
-"  LIMIT 10"
-).print();
-</copy>
-```
-![](./images/get-top-10-products.png " ")
-
-3. When you login to Graph Visualization (next lab), you have the option of connecting to the current JShell session. But for that, you need to get the current **PGX Session ID** so you can use it later at login time.
-
-```
-opg-jshell> <copy>session.getId();
-</copy>
-```
-![](./images/get-session-id.png " ")
-
-4. Exit from the opg-jshell by hitting **CTRL-D**.
-
-You may proceed to the next lab.
+Please proceed to the next lab.
 
 ## Acknowledgements
 

@@ -4,6 +4,8 @@
 
 Oracle Graph Server is a software package for use with the Property Graph feature of Oracle Database. Oracle Graph Server includes the high speed in-memory analytics server (PGX) and client libraries required for graph applications.
 
+> You can work with graphs in two-tier mode (graph client connects directly to Oracle Database), or three-tier mode (graph client connects to the graph server (PGX) on the middle-tier, which then connects to Oracle Database).
+
 ## **STEP 1** : Create a Keystore
 
 As the Graph Server will fetch data from an Oracle Database, you would need a database user with the required privileges, and with a password that must be stored in a Java **keystore** file for protection. Graph Server will then access this keystore for authentication.

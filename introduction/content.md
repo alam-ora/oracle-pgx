@@ -2,13 +2,13 @@
 
 ## About this Workshop
 
-Recommendation engines have become a popular solution for online retailers and streaming content companies looking to suggest products and media to users. Also known as recommender systems, these tools filter out less relevant information in order to predict how likely a user is to purchase an item or engage with certain videos or images, and suggest those things to the user. The recommender systems rely on knowledge built by exploiting the relationships through the expressive power of Graphs.
+Recommendation engines have become a popular solution for online retailers and streaming content providers looking to suggest products and media to users. Also known as recommender systems, these tools filter out less relevant information in order to predict how likely a user is to purchase an item or engage with certain videos or images, and suggest those things to the user. The recommender systems benefit greatly by exploiting the relationships through the expressive power of Graphs.
 
 Property graphs have become a useful way to model, manage, query and analyze much of the connected data found in today’s applications and information systems. They allow you to represent data based on relationships and connectivity, query data by traversing those connections, and analyze data using algorithms that evaluate the strength of the connections, patterns and anomalies in the graph, the importance of elements in the graph, and other factors.
 
 Learn to build a real-time recommendation engine using Oracle Graph on a real-world dataset residing in Oracle Autonomous Database.
 
-Estimated Workshop Time: 180 minutes
+**Estimated Workshop Time :** 2 hours
 
 ### About Oracle Database Graph Technologies
 
@@ -25,7 +25,7 @@ The objectives of this workshop are as follows :
 - Learn to deploy and configure Oracle Graph Server in OCI Compute instance
 - Load a real-world dataset in Oracle Autonomous Database, and configure the Graph Server to connect to ADB
 - Build a Property Graph on data stored in Autonomous Database to model database relationships
-- Query, analyze, and visualize graphs for real-time recommendations
+- Query, analyze, and visualize graphs to provide real-time product recommendations
 
 ## Learn More
 

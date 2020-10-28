@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The lab environment for this workshop will be hosted in Oracle Cloud Infrastructure, and you will access it from a local machine. To minimize the steps and automate the provisioning process, you will execute a set of pre-built Terraform scripts from **Oracle Cloud Infrastructure (OCI) Cloud Shell**.
+The lab environment for this workshop will be hosted in Oracle Cloud Infrastructure. To minimize the provisioning steps and automate the process, you will execute a set of pre-built Terraform scripts from **Oracle Cloud Infrastructure (OCI) Cloud Shell**.
 
 >[Terraform](https://www.terraform.io) is a tool that allows you to programmatically manage, version, and provision IT infrastructure using "infrastructure as code". Terraform uses a declarative syntax to describe resources within your infrastructure and then persist it in configuration files that can be shared, reviewed, edited, versioned, preserved, and reused.
 
@@ -26,7 +26,7 @@ Sign in to your **Cloud Account** from Oracle Cloud website. You will be prompte
 
 ## **STEP 2** : Start OCI Cloud Shell
 
-**OCI Cloud Shell** is a web browser-based terminal accessible from the Oracle Cloud Console to all OCI users. It is free to use (within monthly tenancy limits), and provides access to a Linux shell, with a pre-authenticated OCI CLI, Terraform & Ansible installations, along with a few other useful tools (refer to [Cloud Shell documentation](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/cloudshellgettingstarted.htm) for details).
+**OCI Cloud Shell** is a web browser-based terminal accessible from the Oracle Cloud Console to all OCI users. It is free to use (within monthly tenancy limits), and provides access to a Linux shell, with a pre-authenticated OCI CLI, Terraform & Ansible installations, along with a few other useful tools (refer to [Cloud Shell](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/cloudshellgettingstarted.htm)  documentation for details).
 
 >To use the Cloud Shell, your tenancy administrator must grant the required IAM (Identity and Access Management) policy.
 
@@ -45,7 +45,7 @@ Sign in to your **Cloud Account** from Oracle Cloud website. You will be prompte
 
 ## **STEP 3** : Create an SSH Key Pair
 
-You will utilizing Oracle Cloud Infrastructure Compute instance for installing Oracle Graph and visualization tools. OCI Compute instances use SSH keys instead of passwords to authenticate remote users and to encrypt the communications between network endpoints.
+You will be utilizing Oracle Cloud Infrastructure Compute instance (aka lab VM) for installing the required software components. OCI Compute instances use SSH keys instead of passwords to authenticate remote users and to encrypt the communications between network endpoints.
 
 >The SSH (Secure Shell) protocol is a method to enable secure remote access and data transfers over insecure networks through Cryptography.
 >
@@ -59,8 +59,6 @@ cd ~/oracle-pg/keys</copy>
 ````
 
 2. Using **ssh-keygen** create an OpenSSH PEM format key pair with the key file name **labkey**. Press **ENTER** twice for no passphrase.
-
->Please keep in mind that future lab steps expect the SSH keys to be placed in the folder **~/oracle-pg/keys** and **labkey** as the key file name.
 
 ````
 <copy>ssh-keygen -b 2048 -t rsa -f labkey</copy>
@@ -182,7 +180,7 @@ Run the bash script as follows.
 
 ![](./images/post-terraform-apply.png " ")
 
-6. Please **Copy** the above values and save in a notepad, as the labs will refer to them later (using the **Referred As** names).
+6. Please **Copy** the above values and save in a notepad, as the labs will refer to them later (using the **Referred As** column).
 
 | Value       | Referred As | Description
 |----------------|-------------|----------------------|
