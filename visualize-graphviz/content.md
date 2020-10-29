@@ -24,7 +24,7 @@ The retail graph loaded in the previous session has data about customers purchas
 
 In addition, the walk in PPR discovers similar/related products because they were purchased by the same (or similar, or related) users. Here is a pictorial representation of this walk :
 
-![](./images/ppr-random-walk.png " ")
+![](./images/ppr-random-walk.png)
 
 1. In the **opg-shell** session from the previous lab, run a Personalized PageRank (PPR) algorithm on the retail graph starting with customer **cust_12353** as a focused node.
 
@@ -35,7 +35,7 @@ opg-jshell> <copy>var vertex = graph.getVertex("cust_12353");</copy>
 opg-jshell> <copy>analyst.personalizedPagerank(graph, vertex)
 </copy>
 ```
-![](./images/run-ppr.png " ")
+![](./images/run-ppr.png)
 
 2. Now that we have page ranks computed, execute a PGQL query to get the top 10 recommended products for this customer **cust_12353**.
 
@@ -55,7 +55,7 @@ graph.queryPgql(
 ).print();
 </copy>
 ```
-![](./images/get-top-10-products.png " ")
+![](./images/get-top-10-products.png)
 
 3. From the results above, note the **Product ID** of the first row as that is the product with the highest rank to be recommended to this customer.
 
@@ -65,7 +65,7 @@ graph.queryPgql(
 opg-jshell> <copy>session.getId();
 </copy>
 ```
-![](./images/get-session-id.png " ")
+![](./images/get-session-id.png)
 
 ## **STEP 2**: Login to GraphViz
 
@@ -83,11 +83,11 @@ The Graph Server automatically runs graph visualization application on port 7007
 
   Enter **RETAIL** as the username and **{Retail Password}**, along with the **PGX Session ID** copied earlier.
 
-![](./images/open-graph-viz.jpg " ")
+![](./images/open-graph-viz.jpg)
 
 3. Upon a successful login you will be presented the following home page. The principal points of entry for the GraphViz application are the query editor and the graph lists.
 
-![](./images/graph-viz-home.png " ")
+![](./images/graph-viz-home.png)
 
 ## **STEP 3**: Analyze the Graph
 
@@ -106,11 +106,11 @@ WHERE ID(c1) = 'cust_12353'
 
 2. Select the graph **Online Retail** from the drop-down. The graphs visible in the drop-down indicate they were successfully loaded at in PGX.
 
-![](./images/graph-viz-online-retail.png " ")
+![](./images/graph-viz-online-retail.png)
 
 3. Run the query by clicking the **Run** button. Verify the Graph output.
 
-![](./images/run-pgql.png " ")
+![](./images/run-pgql.png)
 
 ### Add Highlights to the Graph
 
@@ -118,17 +118,17 @@ WHERE ID(c1) = 'cust_12353'
 >
 > You can export and import highlight options by clicking the **Save** and **Load** buttons in the main window. Save lets you persist the highlight options, and Load lets you apply previously saved highlight options.
 
-4. Download [**highlights.json**](https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/oracle_pg/o/highlights.json) (**Right-Click** and select **Download Linked File As**) and save it to your local machine. In this file, the highlights for the retail graph were configured to add icons and change the size of icons according to personalized page ranks (PPR).
+4. Download <a href="./files/highlights.json" download="highlights.json" target="\_blank">highlights.json</a> and save it to your local machine. This file contains the graph highlight definitions, mainly, adds icons and changes the size of icons according to personalized page ranks (PPR).
 
 5. Import highlights.json by clicking **Import**.
 
-![](./images/highlights.png " ")
+![](./images/highlights.png)
 
 6. After the highlights are imported, note the icons get added to the nodes and their size is changed according to their PPR.
 
-![](./images/labeled-graph.png " ")
+![](./images/labeled-graph.png)
 
-You may proceed to the next lab.
+You may proceed to the [next lab](?lab=lab-6-graph-analysis).
 
 ## Acknowledgements
 

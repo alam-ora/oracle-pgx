@@ -31,7 +31,7 @@ In this step you will use **keytool** (bundled with the JDK) to generate the **k
 keytool -importpass -alias database1 -keystore keystore.p12
 </copy>
 ```
-![](./images/keytool-import-pass.png " ")
+![](./images/keytool-import-pass.png)
 
 3. Using **keytool**, verify the **keystore** was created. Enter the **keystore password** when prompted.
 
@@ -40,7 +40,7 @@ keytool -importpass -alias database1 -keystore keystore.p12
 keytool -list -keystore keystore.p12
 </copy>
 ```
-![](./images/keytool-list.png " ")
+![](./images/keytool-list.png)
 
 ## **STEP 2** : Install Graph Server
 
@@ -57,7 +57,7 @@ The package simplifies installation and provides access to the latest graph feat
 ````
 <copy>sudo yum install -y oracle-graph-20.4.0.x86_64.rpm</copy>
 ````
-![](./images/yum-install-graph.png " ")
+![](./images/yum-install-graph.png)
 
 3. The Graph server is a web application that listens on port 7007 by default. The Linux firewall will block this port, unless specifically opened by a rule, using the following commands.
 
@@ -67,18 +67,18 @@ The package simplifies installation and provides access to the latest graph feat
 ```
 <copy>sudo firewall-cmd --reload</copy>
 ```
-![](./images/sudo-firewall.png " ")
+![](./images/sudo-firewall.png)
 
 ## **STEP 3** : Configure Oracle Graph Server
 
 The Graph Server needs to be configured before loading any graphs. Please follow the below instructions to configure Graph Server.
 
-1. First, edit the graph server configuration file **/etc/oracle/graph/server.conf** using your favorite text editor (mainly, **vi** or **vim**).
+1. First, edit the graph server configuration file **/etc/oracle/graph/server.conf** using your favorite text editor (mainly using **nano**, **vi** or **vim**).
 
 >When editing with vi or vim, press **i** to enable the **INSERT** mode before pasting.
 
 ```
-<copy>vi /etc/oracle/graph/server.conf</copy>
+<copy>nano /etc/oracle/graph/server.conf</copy>
 ```
 
 2. Modify **"enable_tls"** to **false**. **SAVE** the file and **EXIT**.
@@ -86,12 +86,12 @@ The Graph Server needs to be configured before loading any graphs. Please follow
 >To save the file and exit in vi/vim, press **Esc**, type **:wq** and hit **ENTER**.
 
 
-![](./images/enable-tls-false.png " ")
+![](./images/enable-tls-false.png)
 
 3. Next, edit the configuration file for the Graph Server PGX engine located at **/etc/oracle/graph/pgx.conf**.
 
 ```
-<copy>vi /etc/oracle/graph/pgx.conf</copy>
+<copy>nano /etc/oracle/graph/pgx.conf</copy>
 ```
 
 4. Modify the **jdbc\_url** to point to the autonomous database, replacing **"< REPLACE-WITH-DATABASE-URL-TO-USE-FOR-AUTHENTICATION >"** with your ADB service name (Hint: scroll down to **pgx\_realm** section to locate **jdbc\_url**).
@@ -102,7 +102,7 @@ The Graph Server needs to be configured before loading any graphs. Please follow
 </copy>
 ```
 
-![](./images/edit-jdbc-url.png " ")
+![](./images/edit-jdbc-url.png)
 
 5. **SAVE** the file and **EXIT**.
 
@@ -124,15 +124,15 @@ Configure the Java environment prior to starting the Graph Server.
 
 3. Enter the **keystore** password when prompted.
 
-![](./images/graph-server-start.png " ")
+![](./images/graph-server-start.png)
 
 4. Wait for a few minutes for the Graph Server to start. Observe the message **"INFO: Starting ProtocolHandler ["http-nio-7007"]""** on a successful startup.
 
-![](./images/graph-server-started.png " ")
+![](./images/graph-server-started.png)
 
 5. **DO NOT** close this SSH session as doing so will stop the Graph Server.
 
-You may proceed to the next lab.
+You may proceed to the [next lab](?lab=lab-4-create-property-graph).
 
 ## Acknowledgements
 

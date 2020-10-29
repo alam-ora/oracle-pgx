@@ -48,7 +48,7 @@ curl -X POST -H 'Content-Type: application/json' -d '{"username": "retail", "pas
 
 5. Copy the token as shown below and paste it in a text editor. You can now use this token to make authenticated remote requests to the graph server.
 
-![](./images/auth-token.png " ")
+![](./images/auth-token.png)
 
 ## **STEP 2** : Configure Graph Config JSON File
 
@@ -58,10 +58,10 @@ For example, when the source data is in relational format, the configuration fil
 
 The following steps will modify a previously created config file for PGX to load **Oracle Retail** graph in memory, sourcing the data directly from relational tables in RETAIL schema.
 
-1. Edit the **config-tables.json** file using your favorite text editor (e.g. **vi** or **vim**).
+1. Edit the **config-tables.json** file using your favorite text editor.
 
 ```
-<copy>vi ~/oracle-pg/graphs/config-tables.json</copy>
+<copy>nano ~/oracle-pg/graphs/config-tables.json</copy>
 ```
 
 2. Replace the **{ADB Service Name HIGH}** in **"jdbc_url"** with your Autonomous Database service name, as follows :
@@ -72,7 +72,7 @@ The following steps will modify a previously created config file for PGX to load
 </copy>
 ```
 
-![](./images/config-tables-json.png " ")
+![](./images/config-tables-json.png)
 
 3. **Save** the file and **Exit** the editor (in vi/vim, press **Esc**, type **:wq** and hit **ENTER**).
 
@@ -90,7 +90,7 @@ The following steps will modify a previously created config file for PGX to load
 
 3. Enter the Keystore password when prompted. Upon a successful login, you will get the **opg-jshell** prompt as follows :
 
-![](./images/jshell-prompt.png " ")
+![](./images/jshell-prompt.png)
 
 4. Load the graph using the JSON file **/home/oracle/oracle-pg/config-tables.json**.
 
@@ -99,7 +99,7 @@ The following steps will modify a previously created config file for PGX to load
 var graph = session.readGraphWithProperties("/home/oracle/oracle-pg/graphs/config-tables.json", "Online Retail");
 </copy>
 ```
-![](./images/load-graph.png " ")
+![](./images/load-graph.png)
 
 5. Test the graph by running a simple query that displays the list of products purchased by a customer.
 
@@ -107,11 +107,11 @@ var graph = session.readGraphWithProperties("/home/oracle/oracle-pg/graphs/confi
 opg-jshell> <copy>graph.queryPgql(" SELECT ID(c), ID(p), p.description FROM MATCH (c)-[has_purchased]->(p) WHERE ID(c) = 'cust_12353' ").print();
 </copy>
 ```
-![](./images/simple-graph-query.png " ")
+![](./images/simple-graph-query.png)
 
 6. **DO NOT CLOSE** the above graph shell session as you will need it in the next lab.
 
-Please proceed to the next lab.
+You may proceed to the [next lab](?lab=lab-5-graph-visualization).
 
 ## Acknowledgements
 

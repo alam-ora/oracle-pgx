@@ -12,9 +12,10 @@ The lab environment for this workshop will be hosted in Oracle Cloud Infrastruct
 
 The lab environment for the workshop consists of :
 
+* Oracle Cloud Infrastructure Compute Service (aka lab VM)
 * Oracle Autonomous Database
 * Oracle Graph Server and Client
-* Apache Zippelin and Graph Viz for visualizations
+* Apache Zippelin and GraphViz for analysis and visualization
 
 ![](./images/lab-environment.jpg)
 
@@ -45,13 +46,13 @@ Sign in to your **Cloud Account** from Oracle Cloud website. You will be prompte
 
 ## **STEP 3** : Create an SSH Key Pair
 
-You will be utilizing Oracle Cloud Infrastructure Compute instance (aka lab VM) for installing the required software components. OCI Compute instances use SSH keys instead of passwords to authenticate remote users and to encrypt the communications between network endpoints.
+You will be utilizing Oracle Cloud Infrastructure Compute instance (aka lab VM) for installing the Oracle software required for this lab. OCI Compute instances use SSH keys instead of passwords to authenticate remote users and to encrypt the communications between network endpoints.
 
 >The SSH (Secure Shell) protocol is a method to enable secure remote access and data transfers over insecure networks through Cryptography.
 >
 >An SSH key pair contains a private key and public key. You keep the private key on your computer and provide it every time you connect to the instance. The public key is kept on the compute instance.
 
-1. Using cloud shell, create a folder to store the SSH keys for the lab environment.
+1. Create a folder to store the lab environment SSH keys.
 
 ````
 <copy>mkdir -p ~/oracle-pg/keys
@@ -67,12 +68,12 @@ cd ~/oracle-pg/keys</copy>
 
 3. List the contents of **labkey** private key file.
 
->If you plan on using a different SSH tool than **Cloud Shell** (e.g. PuTTY), copy the private key and (optionally) convert it to the destination tool's format. For example, PuTTY requires a PPK format which you can generate from the OpenSSH PEM key format using **PuTTYgen**. Ensure the key remains intact during copy/paste.
-
 ````
 <copy>cat labkey</copy>
 ````
 ![](./images/cat-private-key.png " ")
+
+4. **IMPORTANT :** If you plan on using a different SSH client than **Cloud Shell** (e.g. PuTTY), copy the private key and (optionally) convert it to the destination tool's format. For example, PuTTY requires a PPK format which you can generate from the OpenSSH PEM key format using PuTTYgen. **Ensure the key remains intact during copy/paste.**
 
 ## **STEP 4** : Download Setup Scripts
 
@@ -180,7 +181,7 @@ Run the bash script as follows.
 
 ![](./images/post-terraform-apply.png " ")
 
-6. Please **Copy** the above values and save in a notepad, as the labs will refer to them later (using the **Referred As** column).
+6. Please **Copy** the values in the highlighted section above and save them in a notepad. The labs will later refer to them (using the **Referred As** column).
 
 | Value       | Referred As | Description
 |----------------|-------------|----------------------|
@@ -206,14 +207,14 @@ Run the bash script as follows.
 
 The Autonomous Database provisioned for this lab will hold the sample data. Validate the connectivity to the autonomous database using the below steps.
 
-1. In the SSH session, switch to user to **oracle**.
+2. In the SSH session, switch to user to **oracle**.
 
 ````
 <copy>sudo su - oracle</copy>
 ````
 ![](./images/sudo-su-oracle.png " ")
 
-2. Log in to the autonomous database using **SQL Plus**. You will connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
+3. Log in to the autonomous database using **SQL Plus**. You will connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
 
 ```
 <copy>sqlplus ADMIN/</copy>{ADB Admin Password}@{ADB Service Name HIGH}

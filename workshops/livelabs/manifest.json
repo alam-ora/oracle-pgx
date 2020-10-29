@@ -13,7 +13,7 @@
         {
           "title": "Lab 1: Provision Environment",
           "description":"Lab 1: Provision Lab Environment",
-          "filename":"../../provision-environment/content_cs.md"
+          "filename":"../../provision-environment/content_rm.md"
         },
         {
           "title": "Lab 2: Load Dataset",
@@ -31,13 +31,13 @@
           "filename":"../../create-graph/content.md"
         },
         {
-          "title": "Lab 5: Generate Recommendations",
-          "description":"Lab 4: Graph Visualization",
+          "title": "Lab 5: Graph Visualization",
+          "description":"Lab 5: Graph Visualization",
           "filename":"../../visualize-graphviz/content.md"
         },
         {
           "title": "Lab 6: Graph Analysis",
-          "description":"Lab 5: Graph Analysis",
+          "description":"Lab 6: Graph Analysis",
           "filename":"../../analyze-zippelin/content.md"
         }
     ]
