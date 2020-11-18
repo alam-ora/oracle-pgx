@@ -188,8 +188,8 @@ When you run the apply job for a Stack, Terraform creates the resources and exec
 | Value       | Referred As | Description
 |----------------|-------------|----------------------|
 |ADB DB name| {ADB DB Name} | Autonomous Database Name
-|ADB Service Name HIGH|{ADB Service Name HIGH}|Database Service Name for ADW
-|ADB Service Name TP|{ADB Service Name TP}|Database Service Name for TP
+|ADB Service Name HIGH|{ADB Service Name HIGH}|Database Service Name for DW workloads
+|ADB Service Name TP|{ADB Service Name TP}|Database Service Name for TP workloads
 |VM IP Address|{VM IP Address}|IP Address of the OCI VM
 
 ## **STEP 4** : Validate Provisioning
