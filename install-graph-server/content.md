@@ -49,13 +49,13 @@ The package simplifies installation and provides access to the latest graph feat
 1. Download the Oracle Graph Server using a Pre-Authenticated Request (PAR) URL.
 
 ```
-<copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/oracle_pg/o/oracle-graph-20.4.0.x86_64.rpm</copy>
+<copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/n/oraclepartnersas/b/oracle_pg/o/oracle-graph-20.3.0.x86_64.rpm</copy>
 ```
 
 2. Install the Graph Server.
 
 ````
-<copy>sudo yum install -y oracle-graph-20.4.0.x86_64.rpm</copy>
+<copy>sudo yum install -y oracle-graph-20.3.0.x86_64.rpm</copy>
 ````
 ![](./images/yum-install-graph.png)
 

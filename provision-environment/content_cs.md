@@ -15,7 +15,7 @@ The lab environment for the workshop consists of :
 * Oracle Cloud Infrastructure Compute Service (aka lab VM)
 * Oracle Autonomous Database
 * Oracle Graph Server and Client
-* Apache Zippelin and GraphViz for analysis and visualization
+* Apache Zeppelin and GraphViz for analysis and visualization
 
 ![](./images/lab-environment.jpg)
 
