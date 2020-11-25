@@ -83,8 +83,7 @@ The Graph Server needs to be configured before loading any graphs. Please follow
 
 2. Modify **"enable_tls"** to **false**. **SAVE** the file and **EXIT**.
 
->To save the file and exit in vi/vim, press **Esc**, type **:wq** and hit **ENTER**.
-
+>To save the file and exit in nano, hit **CTRL-X** and enter **Y** to save changes.
 
 ![](./images/enable-tls-false.png)
 
