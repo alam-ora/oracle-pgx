@@ -8,6 +8,13 @@ GraphViz can visualize graphs that are have been loaded into the in-memory analy
 
 In this lab, you will use the graph loaded at run time in the previous lab using Graph Shell.
 
+Estimated Lab Time : 15 minutes
+
+### Objectives
+
+- Run Pagerank algorithm on the retail dataset for Recommendations
+- Analyze the results using the GraphViz client
+
 ## **STEP 1**: Compute PageRank
 
 Before attempting any visualizations with GraphViz, let's run a Page Rank algorithm to gather additional knowledge about the retail graph.
@@ -85,7 +92,7 @@ The Graph Server automatically runs graph visualization application on port 7007
 
 ![](./images/open-graph-viz.jpg)
 
-3. Upon a successful login you will be presented the following home page. The principal points of entry for the GraphViz application are the query editor and the graph lists.
+3. Upon a successful login you will be presented the following home page. The principal point of entry for the GraphViz application is the query editor, and also the graph list.
 
 ![](./images/graph-viz-home.png)
 

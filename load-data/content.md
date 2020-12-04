@@ -6,6 +6,12 @@ An open dataset of retail transactions is available for download from [UCI](http
 
 >According to [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/online+retail), "the Online Retail Dataset is a transnational data set which contains all the transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail. The company mainly sells unique all-occasion gifts. Many customers of the company are wholesalers."
 
+Estimated Lab Time : 15 minutes
+
+### Objectives
+
+- Create the database schema in Oracle Autonomous Database and load the retail dataset
+
 ## **STEP 1** : Login to the Compute Instance
 
 You may use [Cloud Shell](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/cloudshellintro.htm) or any SSH client of your choice to SSH into the lab environment. Whatever method you choose, ensure the **SSH Keys** are setup for the client. Click [here](https://docs.cloud.oracle.com/en-us/iaas/Content/GSG/Tasks/testingconnection.htm ) for configuring various SSH clients to connect to OCI Compute instance.
@@ -14,7 +20,7 @@ You may use [Cloud Shell](https://docs.cloud.oracle.com/en-us/iaas/Content/API/C
 > **Note** the actual steps depend on the SSH client.
 
 ```
-<copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
+<copy>ssh -i ~/oracle-pg/keys/labkey opc@{VM IP Address}</copy>
 ```
 
 2. Switch current user to **oracle**.
@@ -32,13 +38,13 @@ You may use [Cloud Shell](https://docs.cloud.oracle.com/en-us/iaas/Content/API/C
 2. Start a SQL Plus session and connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
 
 ```
-<copy>sqlplus ADMIN/</copy>{ADB Admin Password}@{ADB Service Name HIGH}
+<copy>sqlplus ADMIN/{ADB Admin Password}@{ADB Service Name HIGH}</copy>
 ```
 
 3. In the SQL Plus session, create the **RETAIL** database user with a suitable **{Retail Password}** conforming to [ADB password rules](https://docs.oracle.com/en/cloud/paas/autonomous-data-warehouse-cloud/user/manage-users-admin.html#GUID-B227C664-EBA0-4B5E-B11C-A56B16567C1B).
 
 ```
-<copy>CREATE USER retail IDENTIFIED BY</copy> {Retail Password};
+<copy>CREATE USER retail IDENTIFIED BY {Retail Password};</copy>
 ```
 
 4. Grant the required privileges to the **RETAIL** user.
@@ -59,7 +65,7 @@ EXIT;
 5. Start a SQL Plus session again but this time connect as the **RETAIL** user.
 
 ```
-<copy>sqlplus RETAIL/</copy>{Retail Password}@{ADB Service Name HIGH}
+<copy>sqlplus RETAIL/{Retail Password}@{ADB Service Name HIGH}</copy>
 ```
 
 6. Create the tables for the dataset using **create-tables-retail.sql** script located in **~/oracle-pg/scripts** folder.
@@ -118,7 +124,7 @@ The transactional data that was just loaded needs to be normalized into relation
 1. In the previous SSH connection as the **oracle** user, start a SQL Plus session as the **RETAIL** user.
 
 ```
-<copy>sqlplus RETAIL/</copy>{Retail Password}@{ADB Service Name HIGH}
+<copy>sqlplus RETAIL/{Retail Password}@{ADB Service Name HIGH}</copy>
 ```
 
 2. Populate the normalized tables using **normalize-tables.sql** script located in **~/oracle-pg/scripts** folder.

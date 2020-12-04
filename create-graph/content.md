@@ -16,6 +16,12 @@ Depending on your needs, there are two different approaches to how you can creat
 
 In this lab you will use PGX to create a property graph representation of the relational dataset (analytics-only use case).
 
+Estimated Lab Time : 20 minutes
+
+### Objectives
+
+- Create the property graph using the Graph Server JShell client
+
 ## **STEP 1**: Create an Authentication Token for Graph Server
 
 1. Start a new SSH session using your private key **labkey**, **{VM IP Address}**, and **opc** user.

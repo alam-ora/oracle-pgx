@@ -13,6 +13,12 @@ Zeppelin is essentially a scripting environment for running ordinary SQL stateme
 
 The in-memory analyst provides an interpreter implementation for Apache Zeppelin. This lab sets up a zeppelin notebook environment to connect to the in-memory analyst and runs queries to analyze the retail graph created earlier.
 
+Estimated Lab Time : 30 minutes
+
+### Objectives
+
+- Analyze the graph using Apache Zeppelin and the interpreter provided by the Graph server
+
 ## **STEP 1**: Setup Zeppelin in a Docker Container
 
 Running Apache Zeppelin on Docker is a great way to get started with Zeppelin. Follow the steps below to provision the Zeppelin docker container in the lab VM.
@@ -91,7 +97,7 @@ Running Apache Zeppelin on Docker is a great way to get started with Zeppelin. F
 
 Load the retail graph using the **config-tables.json** file provided.
 
-1. From the note, run the second paragraph titled **Get Graph on Graph Server** to load the graph by cliking **Run this Paragraph**. Verify the graph was successfully loaded, indicated by **FINISHED** status.
+1. From the note, run the second paragraph titled **Get Graph on Graph Server** to load the graph by clicking **Run this Paragraph**. Verify the graph was successfully loaded, indicated by **FINISHED** status.
 
 ![](./images/1-load-graph.png)
 

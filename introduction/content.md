@@ -8,7 +8,7 @@ Property graphs have become a useful way to model, manage, query and analyze muc
 
 Learn to build a real-time recommendation engine using Oracle Graph on a real-world dataset residing in Oracle Autonomous Database.
 
-**Estimated Workshop Time :** 2 hours
+Estimated Workshop Time : 2 hours
 
 ### About Oracle Database Graph Technologies
 

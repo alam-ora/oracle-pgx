@@ -6,6 +6,12 @@ The lab environment for this workshop will be hosted in Oracle Cloud Infrastruct
 
 >OCI [Resource Manager](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm) is a managed service that can provision all Oracle Cloud Infrastructure resources and services. Resource Manager reduces configuration errors and increases productivity by managing infrastructure declaratively (i.e. "infrastructure as code") using industry standard Hashicorp Terraform®.
 
+Estimated Lab Time : 15 mins
+
+### Objectives
+
+- Deploy the environment needed for the lab using OCI Resource Manager
+
 ### Lab Environment
 
 The lab environment for the workshop consists of :
@@ -15,7 +21,7 @@ The lab environment for the workshop consists of :
 * Oracle Graph Server and Client
 * Apache Zeppelin and GraphViz for analysis and visualization
 
-![](./images/lab-environment.jpg)
+![](./images/lab-environment.png)
 
 ## **STEP 1** : Sign In to Oracle Cloud Infrastructure Console
 
@@ -200,9 +206,9 @@ When you run the apply job for a Stack, Terraform creates the resources and exec
 
 >**Note:** Make sure that you replace the string, including the curly brackets **{}**, with the values obtained in the earlier step.
 
-````
-<copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
-````
+```
+<copy>ssh -i ~/oracle-pg/keys/labkey opc@{VM IP Address}</copy>
+```
 ![](./images/ssh-i-labkey.png)
 
 ### Validate Connectivity to the Autonomous Database
@@ -211,15 +217,15 @@ The Autonomous Database provisioned for this lab will hold the sample data. Vali
 
 2. In the SSH session, switch to user to **oracle**.
 
-````
+```
 <copy>sudo su - oracle</copy>
-````
+```
 ![](./images/sudo-su-oracle.png)
 
 3. Log in to the autonomous database using **SQL Plus**. You will connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
 
 ```
-<copy>sqlplus ADMIN/</copy>{ADB Admin Password}@{ADB Service Name HIGH}
+<copy>sqlplus ADMIN/{ADB Admin Password}@{ADB Service Name HIGH}</copy>
 ```
 ![](./images/sqlplus-admin.png)
 
@@ -229,7 +235,7 @@ You may proceed to the [next lab](?lab=lab-2-load-dataset).
 
 - **Author** - Maqsood Alam, Product Manager, Oracle Database
 - **Contributor** - Ryota Yamanaka, Product Manager, Oracle Spatial and Graph
-* **Last Updated By/Date** - Maqsood Alam, Oct 2020
+* **Last Updated By/Date** - Maqsood Alam, Dec 2020
 
 ## See an issue?
 Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.
