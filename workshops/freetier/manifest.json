@@ -8,37 +8,38 @@
         },
         {
             "title": "Introduction",
-            "description": "The Introduction is always second. The title and contents menu title match for the Introduction.",
-            "filename": "../../introduction/content.md"
+            "description": "Introduction",
+            "filename": "../../introduction/introduction.md"
         },
         {
-          "title": "Lab 1: Provision Environment",
+          "title": "Lab 1: Provision Lab Environment",
           "description":"Lab 1: Provision Lab Environment",
-          "filename":"../../provision-environment/content_rm.md"
-        },        {
-          "title": "Lab 2: Load Dataset",
-          "description":"Lab 2: Load Retail Dataset",
-          "filename":"../../load-data/content.md"
+          "filename":"../../provision-environment/provision-environment.md"
         },
         {
-          "title": "Lab 3: Install Graph Server",
-          "description":"Lab 3: Install Graph Server",
-          "filename":"../../install-graph-server/content.md"
+          "title": "Lab 2: Load a Retail Dataset",
+          "description":"Lab 2: Load a Retail Dataset",
+          "filename":"../../load-data/load-data.md"
+        },
+        {
+          "title": "Lab 3: Install Oracle Graph Server",
+          "description":"Lab 3: Install Oracle Graph Server",
+          "filename":"../../install-graph-server/install-graph-server.md"
         },
         {
           "title": "Lab 4: Create Property Graph",
           "description":"Lab 4: Create Property Graph",
-          "filename":"../../create-graph/content.md"
+          "filename":"../../create-graph/create-graph.md"
         },
         {
-          "title": "Lab 5: Graph Visualization",
-          "description":"Lab 5: Graph Visualization",
-          "filename":"../../visualize-graphviz/content.md"
+          "title": "Lab 5: Generate Recommendations and Visualize using GraphViz",
+          "description":"Lab 5: Generate Recommendations and Visualize using GraphViz",
+          "filename":"../../visualize-graphviz/visualize-graphviz.md"
         },
         {
-          "title": "Lab 6: Graph Analysis",
-          "description":"Lab 6: Graph Analysis",
-          "filename":"../../analyze-zippelin/content.md"
+          "title": "Lab 6: Graph Analysis using Apache Zeppelin",
+          "description":"Lab 6: Graph Analysis using Apache Zeppelin",
+          "filename":"../../analyze-zippelin/analyze-zippelin.md"
         }
     ]
 }

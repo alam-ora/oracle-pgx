@@ -8,10 +8,6 @@ The lab environment for this workshop will be hosted in Oracle Cloud Infrastruct
 
 Estimated Lab Time : 15 mins
 
-### Objectives
-
-- Deploy the environment needed for the lab using OCI Resource Manager
-
 ### Lab Environment
 
 The lab environment for the workshop consists of :
@@ -21,7 +17,15 @@ The lab environment for the workshop consists of :
 * Oracle Graph Server and Client
 * Apache Zeppelin and GraphViz for analysis and visualization
 
-![](./images/lab-environment.png)
+	![](./images/lab-environment.png)
+
+### Objectives
+
+- Deploy the environment needed for the lab using OCI Resource Manager
+
+### Prerequisites
+
+- An Oracle Free Tier, Always Free, Paid or LiveLabs Cloud Account
 
 ## **STEP 1** : Sign In to Oracle Cloud Infrastructure Console
 
@@ -49,39 +53,39 @@ In this step you will use **Oracle Cloud Shell** to create an SSH key pair.
 
 1. Start OCI Cloud Shell by clicking the **Cloud Shell** icon at the top right of Oracle Cloud Infrastructure console page. Cloud shell takes few seconds to initialize.
 
-![](./images/cloud-shell-in-menu-bar.png)
-![](./images/cloud-shell-initializing.png)
+	![](./images/cloud-shell-in-menu-bar.png)
+	![](./images/cloud-shell-initializing.png)
 
 2. A Bash shell prompt will be presented after the session initializes.
 
-![](./images/cloud-shell-prompt.png)
+	![](./images/cloud-shell-prompt.png)
 
 3. You may customize the cloud shell user interface (change font size, colors etc.) using the **Settings** icon, and maximize the terminal window using the **Maximize** icon.
 
-![](./images/cloud-shell-toolbar.png)
+	![](./images/cloud-shell-toolbar.png)
 
 ### Create an SSH Key Pair
 
 4. Create a folder to store the lab environment SSH keys.
 
-```
-<copy>mkdir -p ~/oracle-pg/keys
-cd ~/oracle-pg/keys</copy>
-```
+	```
+	<copy>mkdir -p ~/oracle-pg/keys
+	cd ~/oracle-pg/keys</copy>
+	```
 
 5. Using **ssh-keygen** create an OpenSSH PEM format key pair with the key file name **labkey**. Press **ENTER** twice for no passphrase.
 
-```
-<copy>ssh-keygen -b 2048 -t rsa -f labkey</copy>
-```
-![](./images/ssh-keygen-output.png)
+	```
+	<copy>ssh-keygen -b 2048 -t rsa -f labkey</copy>
+	```
+	![](./images/ssh-keygen-output.png)
 
 6. List the contents of **labkey** private key file.
 
-```
-<copy>cat labkey</copy>
-```
-![](./images/cat-private-key.png)
+	```
+	<copy>cat labkey</copy>
+	```
+	![](./images/cat-private-key.png)
 
 7. **IMPORTANT :** If you plan on using a different SSH client than **Cloud Shell** (e.g. PuTTY), copy the private key and (optionally) convert it to the destination tool's format. For example, PuTTY requires a PPK format which you can generate from the OpenSSH PEM key format using PuTTYgen. **Ensure the key remains intact during copy/paste.**
 
@@ -108,11 +112,11 @@ Creating a **Stack** involves uploading the Terraform configuration file, provid
 
 1. Open the **Navigation Menu** on the top-left. Under **Solutions and Platform**, locate **Resource Manager** and click **Stacks**.
 
-![](./images_rm/menu-resource-manager-stacks.png)
+	![](./images_rm/menu-resource-manager-stacks.png)
 
 2. Choose a **Compartment** that you have permission to work in (towards the left of the page), and ensure you are in the correct **Region** (towards the top of the page). Click **Create Stack**.
 
-![](./images_rm/click-stacks.png)
+	![](./images_rm/click-stacks.png)
 
 2. In the **Create Stack** dialog, enter the following :
 
@@ -137,15 +141,15 @@ Creating a **Stack** involves uploading the Terraform configuration file, provid
 
 	* Click **Next**.
 
-![](./images_rm/create-stack-next.png)
+	![](./images_rm/create-stack-next.png)
 
 4. On the **Configure Variables** screen, enter the values from **Required Information for Resource Manager** section. These values are required by the Terraform scripts for provisioning.
 
-	**IMPORTANT :** Select **USE_FREE** if you are using Free Tier resources (Ensure you have enough quota on Free Tier).
+	**IMPORTANT :** Select **USE_FREE** if you are using Free Tier resources (ensure you have enough quota on Free Tier).
 
 	Click **Next**.
 
-![](./images_rm/configure-variables.png)
+	![](./images_rm/configure-variables.png)
 
 5. In the **Review** panel, verify your stack configuration and click **Create** to create the Stack.
 
@@ -169,7 +173,7 @@ When you run the apply job for a Stack, Terraform creates the resources and exec
 
 11. Browse to the **Stack Details** page by clicking the link from the breadcrumbs.
 
-![](./images_rm/stack-details-breadcrumb.png)
+	![](./images_rm/stack-details-breadcrumb.png)
 
 12. Go to **Terraform Actions** and select **Apply**.
 
@@ -187,7 +191,7 @@ When you run the apply job for a Stack, Terraform creates the resources and exec
 
 18. Verify the apply log by scrolling down to the **log** section and validate the resources were successfully created.
 
-![](./images_rm/apply-output.png)
+	![](./images_rm/apply-output.png)
 
 19. Please **Copy** the values in the highlighted section above and save them in a notepad. The labs will later refer to them (using the **Referred As** column).
 
@@ -204,12 +208,10 @@ When you run the apply job for a Stack, Terraform creates the resources and exec
 
 1. Using **Cloud Shell**, start an SSH session using your private key **labkey** (or your own private SSH key that you may have used), **{VM IP Address}**, and **opc** user.
 
->**Note:** Make sure that you replace the string, including the curly brackets **{}**, with the values obtained in the earlier step.
-
-```
-<copy>ssh -i ~/oracle-pg/keys/labkey opc@{VM IP Address}</copy>
-```
-![](./images/ssh-i-labkey.png)
+	```
+	<copy>ssh -i ~/oracle-pg/keys/labkey opc@{VM IP Address}</copy>
+	```
+	![](./images/ssh-i-labkey.png)
 
 ### Validate Connectivity to the Autonomous Database
 
@@ -217,19 +219,19 @@ The Autonomous Database provisioned for this lab will hold the sample data. Vali
 
 2. In the SSH session, switch to user to **oracle**.
 
-```
-<copy>sudo su - oracle</copy>
-```
-![](./images/sudo-su-oracle.png)
+	```
+	<copy>sudo su - oracle</copy>
+	```
+	![](./images/sudo-su-oracle.png)
 
 3. Log in to the autonomous database using **SQL Plus**. You will connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
 
-```
-<copy>sqlplus ADMIN/{ADB Admin Password}@{ADB Service Name HIGH}</copy>
-```
-![](./images/sqlplus-admin.png)
+	```
+	<copy>sqlplus ADMIN/{ADB Admin Password}@{ADB Service Name HIGH}</copy>
+	```
+	![](./images/sqlplus-admin.png)
 
-You may proceed to the [next lab](?lab=lab-2-load-dataset).
+You may now [proceed to the next lab](#next).
 
 ## Acknowledgements
 
@@ -237,5 +239,7 @@ You may proceed to the [next lab](?lab=lab-2-load-dataset).
 - **Contributor** - Ryota Yamanaka, Product Manager, Oracle Spatial and Graph
 * **Last Updated By/Date** - Maqsood Alam, Dec 2020
 
-## See an issue?
-Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.
+## Need Help?
+Please submit feedback or ask for help using our [LiveLabs Support Forum](https://community.oracle.com/tech/developers/categories/livelabsdiscussions). Please click the **Log In** button and login using your Oracle Account. Click the **Ask A Question** button to the left to start a *New Discussion* or *Ask a Question*.  Please include your workshop name and lab name.  You can also include screenshots and attach files.  Engage directly with the author of the workshop.
+
+If you do not have an Oracle Account, click [here](https://profile.oracle.com/myprofile/account/create-account.jspx) to create one.

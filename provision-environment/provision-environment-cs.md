@@ -35,16 +35,16 @@ Sign in to your **Cloud Account** from Oracle Cloud website. You will be prompte
 
 1. Start OCI Cloud Shell by clicking the **Cloud Shell** icon at the top right of Oracle Cloud Infrastructure console page. Cloud shell takes few seconds to initialize.
 
-![](./images/cloud-shell-in-menu-bar.png)
-![](./images/cloud-shell-initializing.png)
+  ![](./images/cloud-shell-in-menu-bar.png)
+  ![](./images/cloud-shell-initializing.png)
 
 2. A Bash shell prompt will be presented after the session initializes.
 
-![](./images/cloud-shell-prompt.png)
+  ![](./images/cloud-shell-prompt.png)
 
 3. You may customize the cloud shell user interface (change font size, colors etc.) using the **Settings** icon, and maximize the terminal window using the **Maximize** icon.
 
-![](./images/cloud-shell-toolbar.png)
+  ![](./images/cloud-shell-toolbar.png)
 
 ## **STEP 3** : Create an SSH Key Pair
 
@@ -56,24 +56,24 @@ You will be utilizing Oracle Cloud Infrastructure Compute instance (aka lab VM) 
 
 1. Create a folder to store the lab environment SSH keys.
 
-````
-<copy>mkdir -p ~/oracle-pg/keys
-cd ~/oracle-pg/keys</copy>
-````
+  ```
+  <copy>mkdir -p ~/oracle-pg/keys
+  cd ~/oracle-pg/keys</copy>
+  ```
 
 2. Using **ssh-keygen** create an OpenSSH PEM format key pair with the key file name **labkey**. Press **ENTER** twice for no passphrase.
 
-````
-<copy>ssh-keygen -b 2048 -t rsa -f labkey</copy>
-````
-![](./images/ssh-keygen-output.png)
+  ```
+  <copy>ssh-keygen -b 2048 -t rsa -f labkey</copy>
+  ```
+  ![](./images/ssh-keygen-output.png)
 
 3. List the contents of **labkey** private key file.
 
-````
-<copy>cat labkey</copy>
-````
-![](./images/cat-private-key.png)
+  ```
+  <copy>cat labkey</copy>
+  ```
+  ![](./images/cat-private-key.png)
 
 4. **IMPORTANT :** If you plan on using a different SSH client than **Cloud Shell** (e.g. PuTTY), copy the private key and (optionally) convert it to the destination tool's format. For example, PuTTY requires a PPK format which you can generate from the OpenSSH PEM key format using PuTTYgen. **Ensure the key remains intact during copy/paste.**
 
@@ -90,32 +90,32 @@ A set of Terraform scripts have been pre-created to provision the lab environmen
 
 1. Create a folder to store the Terraform scripts.
 
-````
-<copy>mkdir -p ~/oracle-pg/terraform
-cd ~/oracle-pg/terraform</copy>
-````
+  ```
+  <copy>mkdir -p ~/oracle-pg/terraform
+  cd ~/oracle-pg/terraform</copy>
+  ```
 
 2. Download the Terraform scripts using a Pre-Authenticated Request (PAR) URL as follows.
 
-````
-<copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/p/0yyXbXi38Mmt8vBicaS1qlFmzlytWu4udUuE0IDTdUo/n/oraclepartnersas/b/oracle_pg/o/oracle-pg-tf-cs.tar.gz</copy>
-````
+  ```
+  <copy>wget https://objectstorage.us-phoenix-1.oraclecloud.com/p/0yyXbXi38Mmt8vBicaS1qlFmzlytWu4udUuE0IDTdUo/n/oraclepartnersas/b/oracle_pg/o/oracle-pg-tf-cs.tar.gz</copy>
+  ```
 
 ![](./images/post-wget-terraform.png)
 
 3. Uncompress the tar file using **tar**.
 
-````
-<copy>tar xvzf oracle-pg-tf-cs.tar.gz</copy>
-````
+  ```
+  <copy>tar xvzf oracle-pg-tf-cs.tar.gz</copy>
+  ```
 
 4. Check if **oracle-pg-tf-cs** folder gets created.
 
-````
-<copy>ls</copy>
-````
+  ```
+  <copy>ls</copy>
+  ```
 
-![](./images/post-terraform-untar.png)
+  ![](./images/post-terraform-untar.png)
 
 ## **STEP 5** : Provision the Lab Environment
 
@@ -135,53 +135,52 @@ Run the bash script as follows.
 
 1. Change directory to **~/oracle-pg/terraform/oracle-pg-tf-cs** where the terraform scripts were extracted.
 
-````
-<copy>cd ~/oracle-pg/terraform/oracle-pg-tf-cs</copy>
-````
+  ```
+  <copy>cd ~/oracle-pg/terraform/oracle-pg-tf-cs</copy>
+  ```
 
 2. Generate the environment file using **generate_env.sh** script. The script will prompt for your **Cloud Region**, **Compartment OCID** and **ADB ADMIN Password**. The script checks the validity of your input against the available quota in your tenancy.
 
-````
-<copy>./generate_env.sh</copy>
-````
-
-![](./images/generate-env.png)
+  ```
+  <copy>./generate_env.sh</copy>
+  ```
+  ![](./images/generate-env.png)
 
 ### Provision the Environment
 
 1. Source the environment file in your current shell using the **source** command (or "**.**").
 
-````
-<copy>source ./env.sh</copy>
-````
-![](./images/source-env-sh.png)
+  ```
+  <copy>source ./env.sh</copy>
+  ```
+  ![](./images/source-env-sh.png)
 
 2. Run **terraform init** to initialize the Terraform working directory. This is the first command that should be run after writing a new Terraform configuration or cloning an existing configuration.
 
-````
-<copy>terraform init</copy>
-````
-![](./images/post-terraform-init.png)
+  ```
+  <copy>terraform init</copy>
+  ```
+  ![](./images/post-terraform-init.png)
 
 3. Generate the execution plan for Terraform. The plan determines the necessary actions to create the desired cloud resources specified in the Terraform configuration.
 
-````
-<copy>terraform plan</copy>
-````
-![](./images/post-terraform-plan.png)
+  ```
+  <copy>terraform plan</copy>
+  ```
+  ![](./images/post-terraform-plan.png)
 
 4. Finally, apply the Terraform configuration and create cloud resources using **terraform apply**. Terraform creates the resources and executes the actions defined by the Terraform configuration during the apply.
 
 >Terraform apply will take a few minutes to complete. The time required to complete an apply job depends on the number and type of cloud resources to be created.
 
-````
-<copy>terraform apply -auto-approve</copy>
-````
-![](./images/pre-terraform-apply.png)
+  ```
+  <copy>terraform apply -auto-approve</copy>
+  ```
+  ![](./images/pre-terraform-apply.png)
 
 5. Upon a successful execution of Terraform apply, you will see the following values output on the screen.
 
-![](./images/post-terraform-apply.png)
+  ![](./images/post-terraform-apply.png)
 
 6. Please **Copy** the values in the highlighted section above and save them in a notepad. The labs will later refer to them (using the **Referred As** column).
 
@@ -200,10 +199,10 @@ Run the bash script as follows.
 
 >**Note:** Make sure that you replace the string, including the curly brackets {}, with the values obtained from Terraform apply.
 
-````
-<copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
-````
-![](./images/ssh-i-labkey.png)
+  ```
+  <copy>ssh -i ~/oracle-pg/keys/labkey opc@</copy>{VM IP Address}
+  ```
+  ![](./images/ssh-i-labkey.png)
 
 ### Validate Connectivity to the Autonomous Database
 
@@ -211,17 +210,17 @@ The Autonomous Database provisioned for this lab will hold the sample data. Vali
 
 2. In the SSH session, switch to user to **oracle**.
 
-````
-<copy>sudo su - oracle</copy>
-````
-![](./images/sudo-su-oracle.png)
+  ```
+  <copy>sudo su - oracle</copy>
+  ```
+  ![](./images/sudo-su-oracle.png)
 
 3. Log in to the autonomous database using **SQL Plus**. You will connect as the **ADMIN** user using **{ADB Admin Password}** and to **{ADB Service Name HIGH}** database service.
 
-```
-<copy>sqlplus ADMIN/</copy>{ADB Admin Password}@{ADB Service Name HIGH}
-```
-![](./images/sqlplus-admin.png)
+  ```
+  <copy>sqlplus ADMIN/</copy>{ADB Admin Password}@{ADB Service Name HIGH}
+  ```
+  ![](./images/sqlplus-admin.png)
 
 You may proceed to the next lab.
 
@@ -231,5 +230,7 @@ You may proceed to the next lab.
 - **Contributor** - Ryota Yamanaka, Product Manager, Oracle Spatial and Graph
 * **Last Updated By/Date** - Maqsood Alam, Dec 2020
 
-## See an issue?
-Please submit feedback using this [form](https://apexapps.oracle.com/pls/apex/f?p=133:1:::::P1_FEEDBACK:1). Please include the *workshop name*, *lab* and *step* in your request.  If you don't see the workshop name listed, please enter it manually. If you would like for us to follow up with you, enter your email in the *Feedback Comments* section.
+## Need Help?
+Please submit feedback or ask for help using our [LiveLabs Support Forum](https://community.oracle.com/tech/developers/categories/livelabsdiscussions). Please click the **Log In** button and login using your Oracle Account. Click the **Ask A Question** button to the left to start a *New Discussion* or *Ask a Question*.  Please include your workshop name and lab name.  You can also include screenshots and attach files.  Engage directly with the author of the workshop.
+
+If you do not have an Oracle Account, click [here](https://profile.oracle.com/myprofile/account/create-account.jspx) to create one.
